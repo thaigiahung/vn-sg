@@ -12,7 +12,7 @@ module.exports = {
   	role: { model: 'Role' },
     username: { type: 'string' },
   	password: { type: 'string' },  	
-  	status: { type: 'integer' },
+  	status: { type: 'integer' }, //1: active, 2: lock
     createdAt: {type: 'datetime'},
     updatedAt: {type: 'datetime'}
   }

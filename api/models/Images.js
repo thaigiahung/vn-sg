@@ -12,7 +12,7 @@ module.exports = {
     product: { model: 'Product' },
     name: { type: 'string' },
     description: { type: 'text' },
-    status: { type: 'integer' },
+    status: { type: 'integer' }, //1: active, 2: disable
     createdAt: {type: 'datetime'},
     updatedAt: {type: 'datetime'}
   }

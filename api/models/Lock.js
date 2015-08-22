@@ -11,7 +11,7 @@ module.exports = {
   	id: { type: 'integer', autoIncrement: true, primaryKey: true },
     user: { model: 'User' },
     ip: { type: 'string' },
-    status: { type: 'integer' }
+    status: { type: 'integer' } //1: lock, 2: unlock
   }
 };
 
