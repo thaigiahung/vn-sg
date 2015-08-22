@@ -1,7 +1,7 @@
 /**
- * ImagesController
+ * ProductImagesController
  *
- * @description :: Server-side logic for managing Images
+ * @description :: Server-side logic for managing Productimages
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
