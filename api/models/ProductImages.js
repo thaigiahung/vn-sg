@@ -10,7 +10,7 @@ module.exports = {
   attributes: {
     id: { type: 'integer', autoIncrement: true, primaryKey: true },
     product: { model: 'Product' },
-    name: { type: 'string' },
+    url: { type: 'string' },
     description: { type: 'text' },
     status: { type: 'integer' }, //1: active, 2: disable
     createdAt: {type: 'datetime'},
