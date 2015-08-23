@@ -46,4 +46,5 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   'GET /': 'ProductController.view',
+  'GET /product/:id': 'ProductController.viewDetail',
 };

@@ -32,5 +32,25 @@ module.exports = {
       }
     });
   },
+
+  viewDetail: function(req, res) {    
+    Product.findOne({id: req.params.id}).exec(function (err, product) {
+      if(err || !product) {
+        return res.view('404');
+      }
+      else {        
+        ProductImages.find({product: product.id}).exec(function (err, images) {
+          var data = {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            description: product.description,            
+            images: images
+          }
+          res.view('detail', {data: data});
+        });       
+      }
+    });
+  },
 };
 

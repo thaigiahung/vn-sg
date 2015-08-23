@@ -1,91 +1,93 @@
-<div class="category-products">
-  <div class="toolbar">
-    <div class="sorter">
-      <div class="view-mode"> 
-        <span title="Grid" class="button button-active  button-grid">Grid</span>&nbsp;
-        <a href="list.html" title="List" class="button button-list">List</a>&nbsp; 
-      </div>
+<section class="col-main col-sm-9 col-sm-push-3 wow bounceInUp animated">
+  <div class="category-products">
+    <div class="toolbar">
+      <div class="sorter">
+        <div class="view-mode"> 
+          <span title="Grid" class="button button-active  button-grid">Grid</span>&nbsp;
+          <a href="list.html" title="List" class="button button-list">List</a>&nbsp; 
+        </div>
 
-    </div>
-    <div id="sort-by">
-      <label class="left">Sort By: </label>
-      <ul>
-        <li><a href="#">Position<span class="right-arrow"></span></a>
-          <ul>
-            <li><a href="#">Name</a></li>
-            <li><a href="#">Price</a></li>
-            <li><a href="#">Position</a></li>
-          </ul>
-        </li>
-      </ul>
-      <a class="button-asc left" href="#" title="Set Descending Direction"><span style="color:#999;font-size:11px;" class="glyphicon glyphicon-arrow-up"></span></a> </div>
-    <div class="pager">
-      <div id="limiter">
-        <label>View: </label>
+      </div>
+      <div id="sort-by">
+        <label class="left">Sort By: </label>
         <ul>
-          <li><a href="#">15<span class="right-arrow"></span></a>
+          <li><a href="#">Position<span class="right-arrow"></span></a>
             <ul>
-              <li><a href="#">20</a></li>
-              <li><a href="#">30</a></li>
-              <li><a href="#">35</a></li>
+              <li><a href="#">Name</a></li>
+              <li><a href="#">Price</a></li>
+              <li><a href="#">Position</a></li>
             </ul>
           </li>
         </ul>
-      </div>
-      <div class="pages">
-        <label>Page:</label>
-        <ul class="pagination">
-          <li><a href="#">&laquo;</a></li>
-          <li class="active"><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li><a href="#">&raquo;</a></li>
-        </ul>
+        <a class="button-asc left" href="#" title="Set Descending Direction"><span style="color:#999;font-size:11px;" class="glyphicon glyphicon-arrow-up"></span></a> </div>
+      <div class="pager">
+        <div id="limiter">
+          <label>View: </label>
+          <ul>
+            <li><a href="#">15<span class="right-arrow"></span></a>
+              <ul>
+                <li><a href="#">20</a></li>
+                <li><a href="#">30</a></li>
+                <li><a href="#">35</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="pages">
+          <label>Page:</label>
+          <ul class="pagination">
+            <li><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-  <ul class="products-grid">
-    <% if (data.length > 0) { %>
-      <% _.each(data, function (obj) { %>
-        <li class="item col-lg-4 col-md-4 col-sm-6 col-xs-12">
-          <div class="item-inner">
-            <div class="product-block">
-              <div class="product-image"> 
-                <a href="/product/<%= obj.id %>">
-                  <figure class="product-display">
-                    <div class="sale-label sale-top-left">Sale</div>
-                    <img src="<%= obj.images[0].url %>" class="lazyOwl product-mainpic" alt="" style="display: block;" > 
-                    <img class="product-secondpic" alt="" src="<%= obj.images[1].url %>" width="258"> 
-                  </figure>
-                </a> 
+    <ul class="products-grid">
+      <% if (data.length > 0) { %>
+        <% _.each(data, function (obj) { %>
+          <li class="item col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="item-inner">
+              <div class="product-block">
+                <div class="product-image"> 
+                  <a href="/product/<%= obj.id %>">
+                    <figure class="product-display">
+                      <div class="sale-label sale-top-left">Sale</div>
+                      <img src="<%= obj.images[0].url %>" class="lazyOwl product-mainpic" alt="" style="display: block;" > 
+                      <img class="product-secondpic" alt="" src="<%= obj.images[1].url %>" width="258"> 
+                    </figure>
+                  </a> 
+                </div>
+                <div class="product-meta">
+                  <div class="product-action"> <a class="addcart" href="shopping_cart.html"> <i class="icon-shopping-cart">&nbsp;</i> Add to cart </a> <a href="quick_view.html" class="quickview"> <i class="icon-zoom">&nbsp;</i>Quick view</a> </div>
+                </div>
               </div>
-              <div class="product-meta">
-                <div class="product-action"> <a class="addcart" href="shopping_cart.html"> <i class="icon-shopping-cart">&nbsp;</i> Add to cart </a> <a href="quick_view.html" class="quickview"> <i class="icon-zoom">&nbsp;</i>Quick view</a> </div>
-              </div>
-            </div>
-            <div class="item-info">
-              <div class="info-inner">
-                <div class="item-title"> <a href="/product/<%= obj.id %>" title="<%= obj.name %>"><%= obj.name %> </a> </div>
-                <div class="item-content">
-                  <div class="item-price">
-                    <div class="price-box"> <span class="regular-price" > <span class="price"><%= obj.price %></span> </span> </div>
-                  </div>
-                  <div class="rating">
-                    <div class="ratings">
-                      <div class="rating-box">
-                        <div class="rating" style="width:80%"></div>
+              <div class="item-info">
+                <div class="info-inner">
+                  <div class="item-title"> <a href="/product/<%= obj.id %>" title="<%= obj.name %>"><%= obj.name %> </a> </div>
+                  <div class="item-content">
+                    <div class="item-price">
+                      <div class="price-box"> <span class="regular-price" > <span class="price"><%= obj.price %></span> </span> </div>
+                    </div>
+                    <div class="rating">
+                      <div class="ratings">
+                        <div class="rating-box">
+                          <div class="rating" style="width:80%"></div>
+                        </div>
+                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                       </div>
-                      <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </li>
-      <% }) %>
-    <% } %>       
-  </ul>
-</div>
+          </li>
+        <% }) %>
+      <% } %>       
+    </ul>
+  </div>
+</section>
