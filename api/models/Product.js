@@ -11,7 +11,9 @@ module.exports = {
     id: { type: 'integer', autoIncrement: true, primaryKey: true },
     category: { model: 'Category' },
     name: { type: 'string' },
+    nameAscii: { type: 'string' },
     description: { type: 'text' },
+    descriptionAscii: { type: 'text' },
     price: { type: 'float' },
     quantity: { type: 'integer' },
     status: { type: 'integer' }, //1: enable, 2: disable: 3: out of stock

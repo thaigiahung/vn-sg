@@ -10,6 +10,7 @@ module.exports = {
   attributes: {
     id: { type: 'integer', autoIncrement: true, primaryKey: true },
     name: { type: 'string' },
+    nameAscii: { type: 'string' },
     status: { type: 'integer' }, //1: active, 2: disable
     createdAt: {type: 'datetime'},
     updatedAt: {type: 'datetime'}
