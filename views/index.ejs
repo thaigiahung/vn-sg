@@ -63,7 +63,14 @@
                   </a> 
                 </div>
                 <div class="product-meta">
-                  <div class="product-action"> <a class="addcart" href="shopping_cart.html"> <i class="icon-shopping-cart">&nbsp;</i> Add to cart </a> <a href="quick_view.html" class="quickview"> <i class="icon-zoom">&nbsp;</i>Quick view</a> </div>
+                  <div class="product-action"> 
+                    <a class="addcart" href="#" onclick="addCart(<%= JSON.stringify(obj) %>);"> 
+                      <i class="icon-shopping-cart">&nbsp;</i> Add to cart 
+                    </a> 
+                    <a href="/product/<%= obj.id %>" class="quickview"> 
+                      <i class="icon-zoom">&nbsp;</i>View
+                    </a> 
+                  </div>
                 </div>
               </div>
               <div class="item-info">

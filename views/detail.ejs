@@ -60,7 +60,9 @@
                 </div>
               </div>
               <div class="">
-                <button onClick="productAddToCartForm.submit(this)" class="button btn-cart" title="Add to Cart" type="button"><span><i class="icon-basket"></i> Add to Cart</span></button>
+                <button onClick="addCart(<%= JSON.stringify(data) %>)" class="button btn-cart" title="Add to Cart" type="button">
+                  <span><i class="icon-basket"></i> Add to Cart</span>
+                </button>
               </div>
             </div>
             <div class="email-addto-box">
