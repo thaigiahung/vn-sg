@@ -21,3 +21,7 @@
   position: absolute;
   border-radius: 2px
 }
+
+.addcart {
+  cursor:pointer;
+}
