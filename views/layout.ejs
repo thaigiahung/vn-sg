@@ -51,55 +51,15 @@
               <div class="top-cart-contain">
                 <div class="mini-cart">
                   <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"> <a href="#"> <i class="icon-cart"></i>
-                    <div class="cart-box"><span id="cart-total">2</span></div>
+                    <div class="cart-box"><span id="cart-total">0</span></div>
                   </a></div>
                   <div>
                     <div style="display: none;" class="top-cart-content arrow_box">
                       <div class="block-subtitle">Recently added item(s)</div>
                       <ul id="cart-sidebar" class="mini-products-list">
-                        <li class="item even"> 
-                          <a class="product-image" href="product_detail.html" title="Downloadable Product ">
-                            <img alt="Downloadable Product " src="/images/product1.jpg" width="80">
-                          </a>
-                          <div class="detail-item">
-                            <div class="product-details"> 
-                              <a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a> 
-                              <a class="btn-edit" title="Edit item" href="#">Edit item</a>
-                              <p class="product-name"> 
-                                <a href="#" title="Sample Product">Sample Product</a> 
-                              </p>
-                            </div>
-                            <div class="product-details-bottom"> 
-                              <span class="price">$100.00</span> 
-                              <span class="title-desc">Qty:</span> 
-                              <strong>1</strong> 
-                            </div>
-                          </div>
-                          <!--div class="edit-remove"></div--> 
-                        </li>
-                        <li class="item last odd"> 
-                          <a class="product-image" href="product_detail.html" title=" Lucky Brand Janis ">
-                            <img alt="Sample Product" src="/images/product1.jpg" width="80">
-                          </a>
-                          <div class="detail-item">
-                            <div class="product-details"> 
-                              <a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a> 
-                              <a class="btn-edit" title="Edit item" href="#">Edit item</a>
-                              <p class="product-name"> 
-                                <a href="#" title=" Lucky Brand Janis ">Sample Product</a> 
-                              </p>
-                            </div>
-                            <div class="product-details-bottom"> 
-                              <span class="price">$320.00</span> 
-                              <span class="title-desc">Qty:</span> 
-                              <strong>2</strong> 
-                            </div>
-                          </div>
-
-                          <!--div class="edit-remove"></div--> 
-                        </li>
+                        
                       </ul>
-                      <div class="top-subtotal">Subtotal: <span class="price">$420.00</span></div>
+                      <div class="top-subtotal">Total: <span class="price" id="total"></span></div>
                       <div class="actions">
                         <button class="btn-checkout" type="button"><span>Checkout</span></button>
                       </div>
@@ -841,6 +801,24 @@
         <div class="modal-footer">
           <button class="button btn-cart view-cart" type="button" data-dismiss="modal"><span>Continue shopping</span></button>
           <button class="button btn-cart btn-checkout" type="button" data-dismiss="modal"><span>Checkout</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal cart -->
+  <div class="modal fade" id="modalMessage" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Message from VN-SG.COM</h4>
+        </div>
+        <div class="modal-body" id="modalMessageBody">
+          
+        </div>
+        <div class="modal-footer">
+          <button class="button btn-cart" type="button" data-dismiss="modal"><span>Cancel</span></button>
         </div>
       </div>
     </div>
