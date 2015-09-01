@@ -64,7 +64,7 @@
                 </div>
                 <div class="product-meta">
                   <div class="product-action"> 
-                    <a class="addcart" href="#" onclick="addCart(<%= JSON.stringify(obj) %>);"> 
+                    <a class="addcart" onclick="addCart(<%= JSON.stringify(obj) %>,1);"> 
                       <i class="icon-shopping-cart">&nbsp;</i> Add to cart 
                     </a> 
                     <a href="/product/<%= obj.id %>" class="quickview"> 

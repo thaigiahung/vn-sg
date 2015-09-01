@@ -55,12 +55,12 @@
               <div class="pull-left">
                 <div class="custom pull-left">
                   <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="increase items-count" type="button"><i class="icon-plus">&nbsp;</i></button>
-                  <input type="text" class="input-text qty" title="Qty" value="1" maxlength="12" id="qty" name="qty">
+                  <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-text qty" title="Qty" value="1" maxlength="4" id="qty" name="qty"></input>
                   <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="icon-minus">&nbsp;</i></button>
                 </div>
               </div>
               <div class="">
-                <button onClick="addCart(<%= JSON.stringify(data) %>)" class="button btn-cart" title="Add to Cart" type="button">
+                <button onClick="addCart(<%= JSON.stringify(data) %>, document.getElementById('qty').value)" class="button btn-cart" title="Add to Cart" type="button">
                   <span><i class="icon-basket"></i> Add to Cart</span>
                 </button>
               </div>

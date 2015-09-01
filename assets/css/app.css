@@ -1,0 +1,23 @@
+.in {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.btn-remove3 {
+  background-image: url(../images/btn_remove.png);
+}
+.btn-remove3:hover, .btn-remove3:focus {
+  background-position: 0 -12px;
+}
+.btn-remove3 {
+  display: block;
+  width: 15px;
+  height: 13px;
+  font-size: 0;
+  line-height: 0;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  text-indent: -999em;
+  overflow: hidden;
+  position: absolute;
+  border-radius: 2px
+}

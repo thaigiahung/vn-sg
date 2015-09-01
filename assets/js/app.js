@@ -1,4 +1,9 @@
-function addCart (product) {  
+function addCart (product, qty) {  
   console.log(product);
-  alert(product.id);
+  console.log(qty);
+  $('#modalCart').modal();
 }
+
+$('.btn-checkout').click(function (event) {
+  alert("B")
+})
