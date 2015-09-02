@@ -1,5 +1,5 @@
-$( document ).ready(function() {
-  clearLocalStorage();
+$( document ).ready(function() {  
+  // clearLocalStorage();
   if(typeof(Storage) !== "undefined") {
     var products = localStorage.products;
     var quantities = localStorage.quantities;
@@ -133,11 +133,10 @@ function addCart (product, qty) {
       products = [product];
       quantities = [qty];
 
-      total = (qty * product.price);
+      total = qty * product.price;
     }
     else {
-      total += (qty * product.price); 
-      
+      total += parseFloat(qty * product.price);      
       products = JSON.parse(products);
       quantities = JSON.parse(quantities);
 
@@ -146,7 +145,7 @@ function addCart (product, qty) {
       
       if(pos != -1) { //If it exist in cart
         //Sum qty
-        qty += parseFloat(quantities[pos]);
+        qty += parseInt(quantities[pos]);
 
         //Remove it from array
         products.splice(pos,1);
