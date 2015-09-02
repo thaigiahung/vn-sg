@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+  clearLocalStorage();
   if(typeof(Storage) !== "undefined") {
     var products = localStorage.products;
     var quantities = localStorage.quantities;
@@ -83,61 +84,93 @@ $( document ).ready(function() {
   }
 });
 
+//Search an item in an array of object
+function arrayObjectIndexOf(myArray, searchTerm, property) {
+  for(var i = 0; i < myArray.length; i++) {
+      if (myArray[i][property] === searchTerm) return i;
+  }
+  return -1;
+}
+
+function updateSidebarCart (product, qty) {
+  //Remove attribute last from last <li>
+  $('#cart-sidebar li:last-child').removeClass('last');
+
+  //Append new products to cart-sidebar
+  $('#cart-sidebar').append(
+                            '<li class="item last">' +
+                              '<a class="product-image" href="/product/'+product.id+'">' +
+                                '<img src="'+product.images[0].url+'" width="80">' +
+                              '</a>' +
+                              '<div class="detail-item">' +
+                                '<div class="product-details">' +
+                                  '<a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a>' +
+                                  '<p class="product-name">' +
+                                    '<a href="/product/'+product.id+'">' +
+                                      product.name +
+                                    '</a>' +
+                                  '</p>' +
+                                '</div>' +
+                                '<div class="product-details-bottom">' +
+                                  '<span class="price">'+product.price+' SGD</span>' + 
+                                  '<span class="title-desc">Quantity:</span>' +
+                                  '<strong>'+qty+'</strong>' +
+                                '</div>' +
+                              '</div>' +
+                            '</li>'
+                          );
+}
+
 function addCart (product, qty) {
   //Add this item to localStorage
   if(typeof(Storage) !== "undefined") {
     var products = localStorage.products;
     var quantities = localStorage.quantities;
-    var total = Number(localStorage.total);
+    var total = parseFloat(localStorage.total);
 
+    
     if(!products || !quantities) { //Haven't store products
-      products = [];
-      quantities = [];
+      products = [product];
+      quantities = [qty];
+
       total = (qty * product.price);
     }
     else {
+      total += (qty * product.price); 
+      
       products = JSON.parse(products);
       quantities = JSON.parse(quantities);
-      total += (qty * product.price);      
+
+      //Get index of this item in array products (Check if already added to cart)
+      var pos = arrayObjectIndexOf(products, product.id, "id");
+      
+      if(pos != -1) { //If it exist in cart
+        //Sum qty
+        qty += parseFloat(quantities[pos]);
+
+        //Remove it from array
+        products.splice(pos,1);
+        quantities.splice(pos,1);
+
+        //Remove it from cart-sidebar
+        $('#cart-sidebar').children().eq(pos).remove();
+      }
+
+      //Add this product and qty to array
+      products.push(product);
+      quantities.push(qty);      
     }
 
-    products.push(product);
-    quantities.push(qty);
-
+    //Store them in localStorage
     localStorage.products = JSON.stringify(products);
     localStorage.quantities = JSON.stringify(quantities);
     localStorage.total = JSON.stringify(total);
 
+    updateSidebarCart(product, qty);
+
     //Add products to cart-sidebar
     $('#cart-total').text(products.length);
-    $('#total').text(total + " SGD");
-
-    //Remove attribute last from last <li>
-    $('#cart-sidebar li:last-child').removeClass('last');
-
-    //Append new products to cart-sidebar
-    $('#cart-sidebar').append(
-                              '<li class="item last">' +
-                                '<a class="product-image" href="/product/'+product.id+'">' +
-                                  '<img src="'+product.images[0].url+'" width="80">' +
-                                '</a>' +
-                                '<div class="detail-item">' +
-                                  '<div class="product-details">' +
-                                    '<a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a>' +
-                                    '<p class="product-name">' +
-                                      '<a href="/product/'+product.id+'">' +
-                                        product.name +
-                                      '</a>' +
-                                    '</p>' +
-                                  '</div>' +
-                                  '<div class="product-details-bottom">' +
-                                    '<span class="price">'+product.price+' SGD</span>' + 
-                                    '<span class="title-desc">Quantity:</span>' +
-                                    '<strong>'+qty+'</strong>' +
-                                  '</div>' +
-                                '</div>' +
-                              '</li>'
-                            ); 
+    $('#total').text(total + " SGD");    
 
     $('#modalCartBody').html(
                               '<tr>' +
@@ -170,3 +203,9 @@ function addCart (product, qty) {
 $('.btn-checkout').click(function (event) {
   alert("B")
 });
+
+function clearLocalStorage () {
+  localStorage.removeItem("products");
+  localStorage.removeItem("quantities");
+  localStorage.removeItem("total");
+}
