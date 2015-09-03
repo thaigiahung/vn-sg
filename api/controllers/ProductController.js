@@ -16,7 +16,10 @@ module.exports = {
         else {
           var data = [];
           async.eachSeries(products, function iterator(product, callback) {
-            ProductImages.find({product: product.id}).exec(function (err, images) {
+            ProductImages.find({
+              product: product.id, 
+              status: 1
+            }).exec(function (err, images) {
               var prod = {
                 id: product.id,
                 name: product.name,
@@ -44,7 +47,10 @@ module.exports = {
         else {
           var data = [];
           async.eachSeries(products, function iterator(product, callback) {
-            ProductImages.find({product: product.id}).exec(function (err, images) {
+            ProductImages.find({
+              product: product.id,
+              status: 1
+            }).exec(function (err, images) {
               var prod = {
                 id: product.id,
                 name: product.name,
@@ -70,7 +76,10 @@ module.exports = {
           return res.view('404');
         }
         else {        
-          ProductImages.find({product: product.id}).exec(function (err, images) {
+          ProductImages.find({
+            product: product.id,
+            status: 1
+          }).exec(function (err, images) {
             var data = {
               id: product.id,
               name: product.name,
