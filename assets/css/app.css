@@ -56,11 +56,24 @@
   max-height: 75px;
 }
 
+#map-canvas
+{
+  width: 400px;
+  height: 400px;
+}
+
 
 /* ------ Responsive ------*/
 @media screen and (max-width: 420px) {
   #modalCartPreviewTd,
   #modalCartPreviewTh
+  {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .side-nav-categories
   {
     display: none;
   }

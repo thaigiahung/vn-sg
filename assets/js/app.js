@@ -121,6 +121,11 @@ $( document ).ready(function() {
       $('#cartSubTotal').text(total + " SGD");
       $('#cartGrandTotal').text(total + " SGD");
     }
+
+    // If this is view Checkout => hide side-nav-categories
+    if($('#btnCheckout').length > 0) {
+      $('#side-nav-categories').remove();
+    }
   } 
   else {
     $('#modalMessageBody').text("Sorry! Your browser does not support Web Storage");
@@ -262,7 +267,25 @@ $('#empty_cart_button').click(function (event) {
 
 $('#btnProceedCheckout').click(function (event) {
   redirect('/checkout');
-})
+});
+
+$('#frmCheckout').submit(function(event){
+  // cancels the form submission
+  event.preventDefault();
+
+  // do whatever you want here
+  var data = {
+    first_name: $('#txtFirstName').val(),
+    last_name: $('#txtLastName').val(),
+    email: $('#txtEmail').val(),
+    address: $('#txtAddress').val(),
+    lat: $('#txtLat').val(),
+    lng: $('#txtLng').val(),
+    phone: $('#txtPhone').val()
+  }
+
+  console.log(data);
+});
 
 /* --------------- Custom function --------------- */
 function clearLocalStorage () {
@@ -272,7 +295,7 @@ function clearLocalStorage () {
 }
 
 function redirect (url) {
-  window.location.replace(url);
+  window.location.href = url;
 }
 
 function clearCart () {
