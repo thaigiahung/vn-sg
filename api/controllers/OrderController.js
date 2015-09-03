@@ -6,6 +6,10 @@
  */
 
 module.exports = {
-	
+  viewCart: function(req, res) {
+    CategoryService.getAllCategories(function (categories) {
+      return res.view('cart', {categories: categories});
+    });    
+  },
 };
 

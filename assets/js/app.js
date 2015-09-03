@@ -21,6 +21,8 @@ $( document ).ready(function() {
       $('#cart-total').text(products.length);
       $('#total').text(total + " SGD");
 
+      $('#cartDetailTitle').text("YOUR SHOPPING CART");
+
       //Add products to cart-sidebar
       for(var i = 0; i < productsLength; i++) {
         var product = products[i];
@@ -28,54 +30,97 @@ $( document ).ready(function() {
 
         if(i == productsLength-1) {
           $('#cart-sidebar').append(
-                                    '<li class="item last">' +
-                                      '<a class="product-image" href="/product/'+product.id+'">' +
-                                        '<img src="'+product.images[0].url+'" width="80">' +
-                                      '</a>' +
-                                      '<div class="detail-item">' +
-                                        '<div class="product-details">' +
-                                          '<a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a>' +
-                                          '<p class="product-name">' +
-                                            '<a href="/product/'+product.id+'">' +
-                                              product.name +
-                                            '</a>' +
-                                          '</p>' +
-                                        '</div>' +
-                                        '<div class="product-details-bottom">' +
-                                          '<span class="price">'+product.price+' SGD</span>' + 
-                                          '<span class="title-desc">Quantity:</span>' +
-                                          '<strong>'+quantity+'</strong>' +
-                                        '</div>' +
-                                      '</div>' +
-                                    '</li>'
-                                  );
+            '<li class="item last">' +
+              '<a class="product-image" href="/product/'+product.id+'">' +
+                '<img src="'+product.images[0].url+'" width="80">' +
+              '</a>' +
+              '<div class="detail-item">' +
+                '<div class="product-details">' +
+                  '<a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a>' +
+                  '<p class="product-name">' +
+                    '<a href="/product/'+product.id+'">' +
+                      product.name +
+                    '</a>' +
+                  '</p>' +
+                '</div>' +
+                '<div class="product-details-bottom">' +
+                  '<span class="price">'+product.price+' SGD</span>' + 
+                  '<span class="title-desc">Quantity:</span>' +
+                  '<strong>'+quantity+'</strong>' +
+                '</div>' +
+              '</div>' +
+            '</li>'
+          );
         }
         else {
           $('#cart-sidebar').append(
-                                    '<li class="item">' +
-                                      '<a class="product-image" href="/product/'+product.id+'">' +
-                                        '<img src="'+product.images[0].url+'" width="80">' +
-                                      '</a>' +
-                                      '<div class="detail-item">' +
-                                        '<div class="product-details">' +
-                                          '<a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a>' +
-                                          '<p class="product-name">' +
-                                            '<a href="/product/'+product.id+'">' +
-                                              product.name +
-                                            '</a>' +
-                                          '</p>' +
-                                        '</div>' +
-                                        '<div class="product-details-bottom">' +
-                                          '<span class="price">'+product.price+' SGD</span>' + 
-                                          '<span class="title-desc">Quantity:</span>' +
-                                          '<strong>'+quantity+'</strong>' +
-                                        '</div>' +
-                                      '</div>' +
-                                    '</li>'
-                                  );
+            '<li class="item">' +
+              '<a class="product-image" href="/product/'+product.id+'">' +
+                '<img src="'+product.images[0].url+'" width="80">' +
+              '</a>' +
+              '<div class="detail-item">' +
+                '<div class="product-details">' +
+                  '<a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a>' +
+                  '<p class="product-name">' +
+                    '<a href="/product/'+product.id+'">' +
+                      product.name +
+                    '</a>' +
+                  '</p>' +
+                '</div>' +
+                '<div class="product-details-bottom">' +
+                  '<span class="price">'+product.price+' SGD</span>' + 
+                  '<span class="title-desc">Quantity:</span>' +
+                  '<strong>'+quantity+'</strong>' +
+                '</div>' +
+              '</div>' +
+            '</li>'
+          );
         }
       }
-    }    
+    }
+    else { //If cart has no product
+      emptyCart();
+    }
+
+    // If this is view Cart
+    if($('#shopping-cart-table').length > 0) {
+      for(var i = 0; i < productsLength; i++) {
+        var product = products[i];
+        var quantity = quantities[i];
+
+        $('#shopping-cart-table-body').append(
+          '<tr>' +
+            '<td class="image">' + 
+              '<a class="product-image" title="'+product.name+'" href="/product/'+product.id+'">' +
+                '<img alt="'+product.name+'" src="'+product.images[0].url+'">' +
+              '</a>' +
+            '</td>' +
+            '<td>' +
+              '<h2 class="product-name">' +
+                '<a href="/product/'+product.id+'">'+product.name+'</a>' +
+              '</h2>' +
+            '</td>' +
+            '<td class="a-right">' +
+              '<span class="cart-price"> <span class="price">'+product.price+' SGD</span> </span>' +
+            '</td>' +
+            '<td class="a-center movewishlist">' +
+              '<input maxlength="12" class="input-text qty" title="Qty" size="4" value="'+quantity+'">' +
+            '</td>' +
+            '<td class="a-right movewishlist">' +
+              '<span class="cart-price"> <span class="price">'+ (product.price * quantity) +' SGD</span> </span>' +
+            '</td>' +
+            '<td class="a-center last">' +
+              '<a class="button remove-item" title="Remove item" href="#">' +
+                '<span><span>Remove item</span></span>' +
+              '</a>' +
+            '</td>' +
+          '</tr>'
+        );
+      }
+
+      $('#cartSubTotal').text(total + " SGD");
+      $('#cartGrandTotal').text(total + " SGD");
+    }
   } 
   else {
     $('#modalMessageBody').text("Sorry! Your browser does not support Web Storage");
@@ -198,14 +243,36 @@ function addCart (product, qty) {
   }
 };
 
+/* --------------- Button Click --------------- */
 $('.btn-checkout').click(function (event) {
-  alert("B")
+  redirect("/checkout");
 });
 
+$('.view-cart').click(function (event) {
+  redirect("/cart");
+});
+
+$('.btn-continue').click(function (event) {
+  redirect("/");
+});
+
+$('#empty_cart_button').click(function (event) {
+  clearCart();
+});
+
+$('#btnProceedCheckout').click(function (event) {
+  redirect('/checkout');
+})
+
+/* --------------- Custom function --------------- */
 function clearLocalStorage () {
   localStorage.removeItem("products");
   localStorage.removeItem("quantities");
   localStorage.removeItem("total");
+}
+
+function redirect (url) {
+  window.location.replace(url);
 }
 
 function clearCart () {
@@ -215,4 +282,13 @@ function clearCart () {
   $('#cart-total').text("0");
   $('#total').empty();
   $('#cart-sidebar').empty();
+
+  emptyCart();
+}
+
+function emptyCart () {
+  $('#cartDetail').remove();
+  $('#cartDetailTotal').remove();
+
+  $('#cartDetailTitle').text("YOUR CART IS EMPTY");
 }

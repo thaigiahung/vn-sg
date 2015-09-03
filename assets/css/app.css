@@ -51,6 +51,11 @@
   color: #fff;
 }
 
+#shopping-cart-table-body img {
+  max-width: 75px;
+  max-height: 75px;
+}
+
 
 /* ------ Responsive ------*/
 @media screen and (max-width: 420px) {

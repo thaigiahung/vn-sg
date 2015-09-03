@@ -1,0 +1,85 @@
+<div class="col-main">
+  <div class="cart wow bounceInUp animated">
+    <div class="page-title">
+      <h2 id="cartDetailTitle"></h2>
+    </div>
+    <div id="cartDetail" class="table-responsive">
+      <form method="post" action="#updatePost/">
+        <input type="hidden" value="Vwww7itR3zQFe86m" name="form_key">
+        <fieldset>
+          <table class="data-table cart-table" id="shopping-cart-table">
+            <colgroup>
+              <col width="1">
+              <col>
+              <col width="1">
+              <col width="1">
+              <col width="1">
+              <col width="1">
+              <col width="1">
+            </colgroup>
+            <thead>
+              <tr class="first last">
+                <th rowspan="1">&nbsp;</th>
+                <th rowspan="1"><span class="nobr">Product Name</span></th>
+                <th colspan="1" class="a-center"><span class="nobr">Unit Price</span></th>
+                <th class="a-center" rowspan="1">Qty</th>
+                <th colspan="1" class="a-center">Subtotal</th>
+                <th class="a-center" rowspan="1">&nbsp;</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr class="first last">
+                <td class="a-right last" colspan="50">
+                  <button class="button btn-continue" title="Continue Shopping" type="button"><span><span>Continue Shopping</span></span></button>
+                  <button class="button btn-update" title="Update Cart" value="update_qty" name="update_cart_action" type="submit"><span><span>Update Cart</span></span></button>
+                  <button id="empty_cart_button" class="button btn-empty" title="Clear Cart" value="empty_cart" name="update_cart_action" type="button"><span><span>Clear Cart</span></span></button>
+                </td>
+              </tr>
+            </tfoot>
+            <tbody id="shopping-cart-table-body">
+
+            </tbody>
+          </table>
+        </fieldset>
+      </form>
+    </div>
+  <!-- BEGIN CART COLLATERALS -->
+  <div id="cartDetailTotal" class="cart-collaterals row">
+    <div class="totals col-sm-4  col-sm-offset-8">
+      <h3><span>Shopping Cart Total</span></h3>
+      <div class="inner">
+        <table class="table shopping-cart-table-total" id="shopping-cart-totals-table">
+          <colgroup>
+            <col>
+            <col width="1">
+          </colgroup>          
+          <tbody>
+            <tr>
+              <td colspan="1" class="a-left" style=""> Subtotal </td>
+              <td class="a-right" style=""><span class="price" id="cartSubTotal"></span></td>
+            </tr>
+            <tr>
+              <td colspan="1" class="a-left" style=""> Discount </td>
+              <td class="a-right" style=""><span class="price">0%</span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="1" class="a-left" style=""><strong>Grand Total</strong></td>
+              <td class="a-right" style="">
+                <strong><span class="price" id="cartGrandTotal"></span></strong>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <ul class="checkout">
+          <li>
+            <button id="btnProceedCheckout" class="button btn-proceed-checkout" title="Proceed to Checkout" type="button"><span>Proceed to Checkout</span></button>
+          </li>
+        </ul>
+      </div>
+      <!--inner--> 
+    </div>
+  </div>
+  <!--cart-collaterals--> 
+</div>
