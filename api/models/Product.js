@@ -16,7 +16,7 @@ module.exports = {
     descriptionAscii: { type: 'text' },
     price: { type: 'float' },
     quantity: { type: 'integer' },
-    status: { type: 'integer' }, //1: enable, 2: disable: 3: out of stock
+    status: { type: 'integer' }, //0: disable, 1: enable, 2: out of stock
     sold: { type: 'integer' },
     revenue: { type: 'float' },
     priority: { type: 'integer' },

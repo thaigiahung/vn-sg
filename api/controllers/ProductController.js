@@ -9,7 +9,9 @@
 module.exports = {
 	view: function(req, res) {
     CategoryService.getAllCategories(function (categories) {
-      Product.find().exec(function (err, products) {
+      Product.find({
+        status: 1
+      }).exec(function (err, products) {
         if(err || !products) {
           return res.view('index', {data: []});
         }
@@ -40,7 +42,10 @@ module.exports = {
 
   viewProductByCategory: function(req, res) {
     CategoryService.getAllCategories(function (categories) {
-      Product.find({category: req.params.id}).exec(function (err, products) {
+      Product.find({
+        category: req.params.id, 
+        status: 1
+      }).exec(function (err, products) {
         if(err || !products) {
           return res.view('index', {data: []});
         }
@@ -71,7 +76,10 @@ module.exports = {
 
   viewDetail: function(req, res) {   
     CategoryService.getAllCategories(function (categories) {
-      Product.findOne({id: req.params.id}).exec(function (err, product) {
+      Product.findOne({
+        id: req.params.id, 
+        status: 1
+      }).exec(function (err, product) {
         if(err || !product) {
           return res.view('404');
         }
