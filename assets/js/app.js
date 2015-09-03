@@ -1,5 +1,4 @@
 $( document ).ready(function() {  
-  // clearLocalStorage();
   if(typeof(Storage) !== "undefined") {
     var products = localStorage.products;
     var quantities = localStorage.quantities;
@@ -207,4 +206,13 @@ function clearLocalStorage () {
   localStorage.removeItem("products");
   localStorage.removeItem("quantities");
   localStorage.removeItem("total");
+}
+
+function clearCart () {
+  clearLocalStorage();
+
+  //Clear cart-sidebar
+  $('#cart-total').text("0");
+  $('#total').text("0 SGD");
+  $('#cart-sidebar').empty();
 }

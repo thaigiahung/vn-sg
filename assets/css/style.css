@@ -811,7 +811,7 @@ ul#cart-sidebar {
 	text-transform: none;
 }
 .mini-cart .actions .btn-checkout:before {
-	content: "\f00c";
+	content: "\f07a";
 	font-family: FontAwesome;
 	font-size: 13px;
 	padding-right: 10px;
