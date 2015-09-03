@@ -50,3 +50,13 @@
   background: #7bbd42;
   color: #fff;
 }
+
+
+/* ------ Responsive ------*/
+@media screen and (max-width: 420px) {
+  #modalCartPreviewTd,
+  #modalCartPreviewTh
+  {
+    display: none;
+  }
+}

@@ -172,7 +172,7 @@ function addCart (product, qty) {
 
     $('#modalCartBody').html(
                               '<tr>' +
-                                '<td>' +
+                                '<td id="modalCartPreviewTd">' +
                                   '<a href="/product/'+product.id+'">' +
                                     '<img width="150" src="'+product.images[0].url+'" />' +
                                   '</a>' +                            
@@ -213,6 +213,6 @@ function clearCart () {
 
   //Clear cart-sidebar
   $('#cart-total').text("0");
-  $('#total').text("0 SGD");
+  $('#total').empty();
   $('#cart-sidebar').empty();
 }
