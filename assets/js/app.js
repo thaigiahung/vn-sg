@@ -36,7 +36,7 @@ $( document ).ready(function() {
               '</a>' +
               '<div class="detail-item">' +
                 '<div class="product-details">' +
-                  '<a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a>' +
+                  '<a href="#" title="'+product.id+'" class="btn-remove1 remove-element">Remove This Item</a>' +
                   '<p class="product-name">' +
                     '<a href="/product/'+product.id+'">' +
                       product.name +
@@ -60,7 +60,7 @@ $( document ).ready(function() {
               '</a>' +
               '<div class="detail-item">' +
                 '<div class="product-details">' +
-                  '<a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a>' +
+                  '<a href="#" title="'+product.id+'" class="btn-remove1 remove-element">Remove This Item</a>' +
                   '<p class="product-name">' +
                     '<a href="/product/'+product.id+'">' +
                       product.name +
@@ -110,7 +110,7 @@ $( document ).ready(function() {
               '<span class="cart-price"> <span class="price">'+ (product.price * quantity) +' SGD</span> </span>' +
             '</td>' +
             '<td class="a-center last">' +
-              '<a class="button remove-item" title="Remove item" href="#">' +
+              '<a class="button remove-item" title="'+product.id+'" href="#">' +
                 '<span><span>Remove item</span></span>' +
               '</a>' +
             '</td>' +
@@ -153,7 +153,7 @@ function updateSidebarCart (product, qty) {
                               '</a>' +
                               '<div class="detail-item">' +
                                 '<div class="product-details">' +
-                                  '<a href="#" title="Remove This Item" onClick="" class="btn-remove1">Remove This Item</a>' +
+                                  '<a href="#" title="'+product.id+'" class="btn-remove1 remove-element">Remove This Item</a>' +
                                   '<p class="product-name">' +
                                     '<a href="/product/'+product.id+'">' +
                                       product.name +
@@ -304,6 +304,19 @@ $('#frmCheckout').submit(function(event){
   });
 });
 
+$(document).on("click", "a.remove-element" , function() {
+  // Get product id
+  var id = this.title;
+  updateCartAfterRemoveEle(id);
+});
+
+$(document).on("click", "a.remove-item" , function() {
+  // Get product id
+  var id = this.title;
+  updateCartAfterRemoveEle(id);  
+});
+
+
 /* --------------- Custom function --------------- */
 function clearLocalStorage () {
   localStorage.removeItem("products");
@@ -331,4 +344,37 @@ function emptyCart () {
   $('#cartDetailTotal').remove();
 
   $('#cartDetailTitle').text("YOUR CART IS EMPTY");
+}
+
+function removeElement (ele) {
+  console.log(ele);
+  $(this).remove();
+}
+
+function updateCartAfterRemoveEle (id) {
+  var products = JSON.parse(localStorage.products);
+  var quantities = JSON.parse(localStorage.quantities);
+  var total = parseFloat(localStorage.total);
+
+  //Find product with id in localStorage
+  var pos = arrayObjectIndexOf(products, Number(id), "id");
+
+  //Remove it from localStorage
+  total -= products[pos].price * quantities[pos];
+  products.splice(pos,1);
+  quantities.splice(pos,1);
+
+  //Store new values in localStorage
+  localStorage.products = JSON.stringify(products);
+  localStorage.quantities = JSON.stringify(quantities);
+  localStorage.total = JSON.stringify(total);
+
+  $('#shopping-cart-table-body tr:nth-child('+(pos+1)+')' ).remove();
+  $('#cartSubTotal').text(total + " SGD");
+  $('#cartGrandTotal').text(total + " SGD");
+
+  //Update cart-sidebar  
+  $('#cart-sidebar li:nth-child('+(pos+1)+')' ).remove();
+  $('#cart-total').text(products.length);
+  $('#total').text(total + " SGD");
 }
