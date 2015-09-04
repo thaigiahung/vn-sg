@@ -3,7 +3,7 @@ $( document ).ready(function() {
     var products = localStorage.products;
     var quantities = localStorage.quantities;
     var total = localStorage.total;
-    
+
     if(!products || !quantities) { //Haven't store products
       products = [];
       quantities = [];
@@ -269,6 +269,12 @@ $('#btnProceedCheckout').click(function (event) {
   redirect('/checkout');
 });
 
+$('#btnOk').click(function (event) {
+  //Clear localStorage and redirect to index
+  clearCart();
+  redirect('/');
+});
+
 $('#frmCheckout').submit(function(event){
   // cancels the form submission
   event.preventDefault();
@@ -281,10 +287,21 @@ $('#frmCheckout').submit(function(event){
     address: $('#txtAddress').val(),
     lat: $('#txtLat').val(),
     lng: $('#txtLng').val(),
-    phone: $('#txtPhone').val()
+    phone: $('#txtPhone').val(),
+    products: localStorage.products,
+    quantities: localStorage.quantities,
+    total: parseFloat(localStorage.total)
   }
 
-  console.log(data);
+  $.post( "/order", data).done(function( result ) {
+    if(result.status == 1) {//If success: 
+      $('#btnOk').show();
+      $('#btnCancel').remove();
+    }
+    
+    $('#modalMessageBody').text(result.message);
+    $('#modalMessage').modal();
+  });
 });
 
 /* --------------- Custom function --------------- */

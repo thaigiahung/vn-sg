@@ -1,5 +1,5 @@
 .in {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .btn-remove3 {
@@ -60,6 +60,10 @@
 {
   width: 400px;
   height: 400px;
+}
+
+#btnOk {
+  display: none;
 }
 
 
