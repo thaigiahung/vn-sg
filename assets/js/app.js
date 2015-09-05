@@ -104,7 +104,7 @@ $( document ).ready(function() {
               '<span class="cart-price"> <span class="price">'+product.price+' SGD</span> </span>' +
             '</td>' +
             '<td class="a-center movewishlist">' +
-              '<input maxlength="12" class="input-text qty" title="'+product.id+'" size="4" value="'+quantity+'">' +
+              '<input maxlength="4" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="input-text qty" title="'+product.id+'" size="4" value="'+quantity+'">' +
             '</td>' +
             '<td class="a-right movewishlist">' +
               '<span class="cart-price"> <span class="price">'+ (product.price * quantity) +' SGD</span> </span>' +
@@ -171,6 +171,7 @@ function updateSidebarCart (product, qty) {
 }
 
 function addCart (product, qty) {
+  qty = parseInt(qty)
   //Add this item to localStorage
   if(typeof(Storage) !== "undefined") {
     var products = localStorage.products;
@@ -317,6 +318,8 @@ $(document).on("click", "a.remove-item" , function() {
 });
 
 $(document).on("change", "input.qty" , function() {
+  checkQuantity(this);
+
   var newQty = Number(this.value);
   var id = this.title;
 
@@ -353,6 +356,9 @@ $(document).on("change", "input.qty" , function() {
   }  
 });
 
+$(document).on("change", "#txtQty" , function() {
+  checkQuantity(this);
+});
 
 /* --------------- Custom function --------------- */
 function clearLocalStorage () {
@@ -414,4 +420,11 @@ function updateCartAfterRemoveEle (id) {
   $('#cart-sidebar li:nth-child('+(pos+1)+')' ).remove();
   $('#cart-total').text(products.length);
   $('#total').text(total + " SGD");
+}
+
+function checkQuantity (ele) {
+  //Qty must always be integer AND > 0
+  if(parseInt(ele.value) <= 1) {
+    ele.value = 1;
+  }
 }
