@@ -424,7 +424,8 @@ function updateCartAfterRemoveEle (id) {
 
 function checkQuantity (ele) {
   //Qty must always be integer AND > 0
-  if(parseInt(ele.value) <= 1) {
+  var qty = parseInt(ele.value);
+  if(isNaN(qty) || qty <= 1) {
     ele.value = 1;
   }
 }
