@@ -104,7 +104,7 @@ $( document ).ready(function() {
               '<span class="cart-price"> <span class="price">'+product.price+' SGD</span> </span>' +
             '</td>' +
             '<td class="a-center movewishlist">' +
-              '<input maxlength="12" class="input-text qty" title="Qty" size="4" value="'+quantity+'">' +
+              '<input maxlength="12" class="input-text qty" title="'+product.id+'" size="4" value="'+quantity+'">' +
             '</td>' +
             '<td class="a-right movewishlist">' +
               '<span class="cart-price"> <span class="price">'+ (product.price * quantity) +' SGD</span> </span>' +
@@ -314,6 +314,43 @@ $(document).on("click", "a.remove-item" , function() {
   // Get product id
   var id = this.title;
   updateCartAfterRemoveEle(id);  
+});
+
+$(document).on("change", "input.qty" , function() {
+  var newQty = Number(this.value);
+  var id = this.title;
+
+  var products = JSON.parse(localStorage.products);
+  var quantities = JSON.parse(localStorage.quantities);
+  var total = parseFloat(localStorage.total);
+
+  //Find product with id in localStorage
+  var pos = arrayObjectIndexOf(products, Number(id), "id");
+  if(pos != -1) {
+    
+    var oldQty = parseFloat(quantities[pos]);
+    var price = parseFloat(products[pos].price);
+    var oldSubTotal = oldQty * price;
+    var newSubTotal = newQty * price;
+    total = total - oldSubTotal + newSubTotal;
+
+    //Update cart body
+    $('#shopping-cart-table-body').children().eq(pos).children().eq(4).children().children().text(newSubTotal + " SGD");
+
+    //Update cart-sidebar
+    $('#total').text(total + " SGD"); 
+    $('.product-details-bottom').eq(pos).children().first().text(newSubTotal + " SGD");
+    $('.product-details-bottom strong').eq(pos).text(newQty);
+
+    //Update grand total
+    $('#cartSubTotal').text(total + " SGD");
+    $('#cartGrandTotal').text(total + " SGD");
+
+    //Store new values in localStorage
+    quantities[pos] = newQty;
+    localStorage.quantities = JSON.stringify(quantities);
+    localStorage.total = JSON.stringify(total);
+  }  
 });
 
 
