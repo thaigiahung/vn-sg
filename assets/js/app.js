@@ -125,6 +125,21 @@ $( document ).ready(function() {
     // If this is view Checkout => hide side-nav-categories
     if($('#btnCheckout').length > 0) {
       $('#side-nav-categories').remove();
+
+      //If personalInfo exist => append it to frmCheckout
+      var personalInfo = localStorage.personalInfo;
+      console.log(personalInfo)
+      if(personalInfo) {
+        personalInfo = JSON.parse(personalInfo);
+        console.log(personalInfo)
+        $('#txtFirstName').val(personalInfo.firstName),
+        $('#txtLastName').val(personalInfo.lastName),
+        $('#txtEmail').val(personalInfo.email),
+        $('#txtAddress').val(personalInfo.address),
+        $('#txtLat').val(personalInfo.lat),
+        $('#txtLng').val(personalInfo.lng),
+        $('#txtPhone').val(personalInfo.phone)
+      }
     }
   } 
   else {
@@ -293,6 +308,18 @@ $('#frmCheckout').submit(function(event){
     quantities: localStorage.quantities,
     total: parseFloat(localStorage.total)
   }
+
+  //Save receiver info in localStorage
+  var personalInfo = {
+    firstName: $('#txtFirstName').val(),
+    lastName: $('#txtLastName').val(),
+    email: $('#txtEmail').val(),
+    address: $('#txtAddress').val(),
+    lat: $('#txtLat').val(),
+    lng: $('#txtLng').val(),
+    phone: $('#txtPhone').val()
+  }
+  localStorage.personalInfo = JSON.stringify(personalInfo);  
 
   $.post( "/order", data).done(function( result ) {
     if(result.status == 1) {//If success: 
