@@ -6,6 +6,10 @@
  */
 
 module.exports = {
-	
+	manage: function(req, res) {
+    CategoryService.getAllCategories(function (categories) {
+      return res.view('admin/category', {layout: 'admin/layout', categories: categories}); 
+    });
+  },
 };
 

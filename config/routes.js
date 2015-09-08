@@ -51,4 +51,8 @@ module.exports.routes = {
   'GET /cart': 'OrderController.viewCart',
   'GET /checkout': 'OrderController.checkout',
   'POST /order': 'OrderController.order',
+
+  'GET /manage': 'CategoryController.manage',
+  'GET /manage/category': 'CategoryController.manage',
+  'POST /entity/update': 'ServiceController.updateEntity',
 };
