@@ -86,4 +86,35 @@ module.exports = {
       }
     }
   },
+  createEntity: function(req, res) {
+    /* ------- User Manual -------
+    Input:
+      model_name: model to be inserting
+      data: value to be used for inserting (Object)
+    Example: if you need to insert category
+      model_name: 'Category'
+      data: {name: 'New Category'}
+    ------- End ------- */
+
+    var modelName = req.body.model_name;
+    var data = JSON.parse(req.body.data);
+
+    //global[modelName]: convert string to object model
+    global[modelName].create(data).exec(function (err, created) {          
+      if(err || !created) {
+        return res.json({
+          status: 0,
+          message: "Cannot create this "+ modelName +"!",
+          data: {}
+        });
+      }
+      else {
+        return res.json({
+          status: 1,
+          message: modelName +" created successfully!",
+          data: created
+        });
+      }
+    });
+  },
 };

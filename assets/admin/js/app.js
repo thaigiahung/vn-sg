@@ -1,4 +1,7 @@
 $( document ).ready(function() {
+  if($('#tableCategory').length > 0){
+    $('#tableCategory').DataTable();
+  }
 });
 
 
@@ -21,6 +24,55 @@ $('.manage-category-name').focusout(function() {
     $('#modalMessage').modal();
   });  
 });
+
+$('#frmCreateCategory').submit(function(event){
+  // cancels the form submission
+  event.preventDefault();
+
+  var data = {
+    name: $('#txtName').val()
+  }
+  
+  $.post( "/entity/create", {
+    model_name: 'Category', 
+    data: JSON.stringify(data)
+  }).done(function( result ) {
+    if(result.status == 0) {
+      $('#lblModalError').text(result.message);
+      $('#divModalError').show();
+    }
+    else {
+      //Hide modal error
+      $('#divModalError').hide();
+
+      //Hide modal create category
+      $('#modalCreateCategory').modal('hide');
+
+      $('#tableCategoryBody').append(
+        '<tr>' +
+          '<td>' +
+            '<p>' + result.data.id + '</p>' +
+          '</td>' +
+          '<td>' +
+            '<input type="hidden" value="' + result.data.id + '">' +
+            '<input type="hidden" value="name">' +
+            '<p contenteditable="true" class="manage-category-name">' +
+              result.data.name +
+            '</p>' +    
+          '</td>' +          
+          '<td>Active</td>' +
+          '<td>' +            
+              '<button type="button" onclick="disableItem(this,\'Category\','+result.data.id+',\'status\')" class="btn btn-danger">Disable</button>' +
+              '<button style="display: none;" type="button" onclick="activeItem(this,\'Category\','+result.data.id+',\'status\')" class="btn btn-success">Active</button>' +
+          '</td>' +
+        '</tr>'
+      );
+    }
+  });
+});
+
+
+
 
 
 /* --------------- Custom function --------------- */

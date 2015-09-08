@@ -128,10 +128,10 @@ $( document ).ready(function() {
 
       //If personalInfo exist => append it to frmCheckout
       var personalInfo = localStorage.personalInfo;
-      console.log(personalInfo)
+
       if(personalInfo) {
         personalInfo = JSON.parse(personalInfo);
-        console.log(personalInfo)
+        
         $('#txtFirstName').val(personalInfo.firstName),
         $('#txtLastName').val(personalInfo.lastName),
         $('#txtEmail').val(personalInfo.email),
@@ -148,121 +148,7 @@ $( document ).ready(function() {
   }
 });
 
-//Search an item in an array of object
-function arrayObjectIndexOf(myArray, searchTerm, property) {
-  for(var i = 0; i < myArray.length; i++) {
-      if (myArray[i][property] === searchTerm) return i;
-  }
-  return -1;
-}
 
-function updateSidebarCart (product, qty) {
-  //Remove attribute last from last <li>
-  $('#cart-sidebar li:last-child').removeClass('last');
-
-  //Append new products to cart-sidebar
-  $('#cart-sidebar').append(
-                            '<li class="item last">' +
-                              '<a class="product-image" href="/product/'+product.id+'">' +
-                                '<img src="'+product.images[0].url+'" width="80">' +
-                              '</a>' +
-                              '<div class="detail-item">' +
-                                '<div class="product-details">' +
-                                  '<a href="#" title="'+product.id+'" class="btn-remove1 remove-element">Remove This Item</a>' +
-                                  '<p class="product-name">' +
-                                    '<a href="/product/'+product.id+'">' +
-                                      product.name +
-                                    '</a>' +
-                                  '</p>' +
-                                '</div>' +
-                                '<div class="product-details-bottom">' +
-                                  '<span class="price">'+product.price+' SGD</span>' + 
-                                  '<span class="title-desc">Quantity:</span>' +
-                                  '<strong>'+qty+'</strong>' +
-                                '</div>' +
-                              '</div>' +
-                            '</li>'
-                          );
-}
-
-function addCart (product, qty) {
-  qty = parseInt(qty)
-  //Add this item to localStorage
-  if(typeof(Storage) !== "undefined") {
-    var products = localStorage.products;
-    var quantities = localStorage.quantities;
-    var total = parseFloat(localStorage.total);
-
-    
-    if(!products || !quantities) { //Haven't store products
-      products = [product];
-      quantities = [qty];
-
-      total = qty * product.price;
-    }
-    else {
-      total += parseFloat(qty * product.price);      
-      products = JSON.parse(products);
-      quantities = JSON.parse(quantities);
-
-      //Get index of this item in array products (Check if already added to cart)
-      var pos = arrayObjectIndexOf(products, product.id, "id");
-      
-      if(pos != -1) { //If it exist in cart
-        //Sum qty
-        qty += parseInt(quantities[pos]);
-
-        //Remove it from array
-        products.splice(pos,1);
-        quantities.splice(pos,1);
-
-        //Remove it from cart-sidebar
-        $('#cart-sidebar').children().eq(pos).remove();
-      }
-
-      //Add this product and qty to array
-      products.push(product);
-      quantities.push(qty);      
-    }
-
-    //Store them in localStorage
-    localStorage.products = JSON.stringify(products);
-    localStorage.quantities = JSON.stringify(quantities);
-    localStorage.total = JSON.stringify(total);
-
-    updateSidebarCart(product, qty);
-
-    //Add products to cart-sidebar
-    $('#cart-total').text(products.length);
-    $('#total').text(total + " SGD");    
-
-    $('#modalCartBody').html(
-                              '<tr>' +
-                                '<td id="modalCartPreviewTd">' +
-                                  '<a href="/product/'+product.id+'">' +
-                                    '<img width="150" src="'+product.images[0].url+'" />' +
-                                  '</a>' +                            
-                                '</td>' +
-                                '<td>' +
-                                  '<a href="/product/'+product.id+'">' +
-                                    product.name +
-                                  '</a>' +
-                                '</td>' +
-                                '<td>' +
-                                  product.price +
-                                '</td>' +
-                                '<td>' +
-                                 qty +
-                                '</td>' +
-                              '</tr>'
-                            );
-    $('#modalCart').modal();
-  } 
-  else {
-    $('#modalMessageBody').text("Sorry! Your browser does not support Web Storage");
-    $('#modalMessage').modal();
-  }
-};
 
 /* --------------- Button Click --------------- */
 $('.btn-checkout').click(function (event) {
@@ -388,6 +274,122 @@ $(document).on("change", "#txtQty" , function() {
 });
 
 /* --------------- Custom function --------------- */
+//Search an item in an array of object
+function arrayObjectIndexOf(myArray, searchTerm, property) {
+  for(var i = 0; i < myArray.length; i++) {
+      if (myArray[i][property] === searchTerm) return i;
+  }
+  return -1;
+}
+
+function updateSidebarCart (product, qty) {
+  //Remove attribute last from last <li>
+  $('#cart-sidebar li:last-child').removeClass('last');
+
+  //Append new products to cart-sidebar
+  $('#cart-sidebar').append(
+                            '<li class="item last">' +
+                              '<a class="product-image" href="/product/'+product.id+'">' +
+                                '<img src="'+product.images[0].url+'" width="80">' +
+                              '</a>' +
+                              '<div class="detail-item">' +
+                                '<div class="product-details">' +
+                                  '<a href="#" title="'+product.id+'" class="btn-remove1 remove-element">Remove This Item</a>' +
+                                  '<p class="product-name">' +
+                                    '<a href="/product/'+product.id+'">' +
+                                      product.name +
+                                    '</a>' +
+                                  '</p>' +
+                                '</div>' +
+                                '<div class="product-details-bottom">' +
+                                  '<span class="price">'+product.price+' SGD</span>' + 
+                                  '<span class="title-desc">Quantity:</span>' +
+                                  '<strong>'+qty+'</strong>' +
+                                '</div>' +
+                              '</div>' +
+                            '</li>'
+                          );
+}
+
+function addCart (product, qty) {
+  qty = parseInt(qty)
+  //Add this item to localStorage
+  if(typeof(Storage) !== "undefined") {
+    var products = localStorage.products;
+    var quantities = localStorage.quantities;
+    var total = parseFloat(localStorage.total);
+
+    
+    if(!products || !quantities) { //Haven't store products
+      products = [product];
+      quantities = [qty];
+
+      total = qty * product.price;
+    }
+    else {
+      total += parseFloat(qty * product.price);      
+      products = JSON.parse(products);
+      quantities = JSON.parse(quantities);
+
+      //Get index of this item in array products (Check if already added to cart)
+      var pos = arrayObjectIndexOf(products, product.id, "id");
+      
+      if(pos != -1) { //If it exist in cart
+        //Sum qty
+        qty += parseInt(quantities[pos]);
+
+        //Remove it from array
+        products.splice(pos,1);
+        quantities.splice(pos,1);
+
+        //Remove it from cart-sidebar
+        $('#cart-sidebar').children().eq(pos).remove();
+      }
+
+      //Add this product and qty to array
+      products.push(product);
+      quantities.push(qty);      
+    }
+
+    //Store them in localStorage
+    localStorage.products = JSON.stringify(products);
+    localStorage.quantities = JSON.stringify(quantities);
+    localStorage.total = JSON.stringify(total);
+
+    updateSidebarCart(product, qty);
+
+    //Add products to cart-sidebar
+    $('#cart-total').text(products.length);
+    $('#total').text(total + " SGD");    
+
+    $('#modalCartBody').html(
+                              '<tr>' +
+                                '<td id="modalCartPreviewTd">' +
+                                  '<a href="/product/'+product.id+'">' +
+                                    '<img width="150" src="'+product.images[0].url+'" />' +
+                                  '</a>' +                            
+                                '</td>' +
+                                '<td>' +
+                                  '<a href="/product/'+product.id+'">' +
+                                    product.name +
+                                  '</a>' +
+                                '</td>' +
+                                '<td>' +
+                                  product.price +
+                                '</td>' +
+                                '<td>' +
+                                 qty +
+                                '</td>' +
+                              '</tr>'
+                            );
+    $('#modalCart').modal();
+  } 
+  else {
+    $('#modalMessageBody').text("Sorry! Your browser does not support Web Storage");
+    $('#modalMessage').modal();
+  }
+};
+
 function clearLocalStorage () {
   localStorage.removeItem("products");
   localStorage.removeItem("quantities");
@@ -417,7 +419,6 @@ function emptyCart () {
 }
 
 function removeElement (ele) {
-  console.log(ele);
   $(this).remove();
 }
 

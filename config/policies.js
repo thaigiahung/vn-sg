@@ -26,7 +26,7 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  '*': false,
 
   /***************************************************************************
   *                                                                          *
@@ -48,4 +48,23 @@ module.exports.policies = {
 		// before letting any users feed our rabbits
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
 	// }
+
+  CategoryController: {
+    create: false,
+    manage: true,    
+  },
+  OrderController: {
+    viewCart: true,
+    checkout: true,
+    order: true,    
+  },
+  ProductController: {
+    view: true,
+    viewProductByCategory: true,
+    viewDetail: true,    
+  },
+  ServiceController: {
+    updateEntity: true,
+    createEntity: true,
+  }
 };
