@@ -46,8 +46,12 @@
 
                   <td>
                     <% if (obj.status == 1) { %>
-                      <button type="button" id="btnRemove<%= obj.id %>" class="btn btn-danger remove">Delete</button>
-                    <% }%>
+                      <button type="button" onclick="disableItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-danger">Disable</button>
+                      <button style="display: none;" type="button" onclick="activeItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-success">Active</button>
+                    <% } else { %>
+                      <button style="display: none;" type="button" onclick="disableItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-danger">Disable</button>
+                      <button type="button" onclick="activeItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-success">Active</button>
+                    <% } %>
                   </td>                            
                 </tr>
               <% }) %>

@@ -33,3 +33,43 @@ function smoothScrollTo(to){
     scrollTop: $(to).offset().top
   }, 500);
 }
+
+function disableItem(ele, modelName, id, field) {
+  var data = {
+    model_name: modelName,
+    id: id,
+    field: field,
+    value: 2
+  }
+  $.post( "/entity/update", data).done(function( result ) {
+    if(result.status == 0) {
+      $('#modalMessageBody').text(result.message);
+      $('#modalMessage').modal();
+    }
+    else {
+      $(ele).parent().parent().children('td').eq(2).text('Disabled')
+      $(ele).parent().children().last().show();
+      $(ele).parent().children().first().hide();
+    }    
+  });
+}
+
+function activeItem(ele, modelName, id, field) {
+  var data = {
+    model_name: modelName,
+    id: id,
+    field: field,
+    value: 1
+  }
+  $.post( "/entity/update", data).done(function( result ) {
+    if(result.status == 0) {
+      $('#modalMessageBody').text(result.message);
+      $('#modalMessage').modal();
+    }
+    else {
+      $(ele).parent().parent().children('td').eq(2).text('Active')
+      $(ele).parent().children().last().hide();
+      $(ele).parent().children().first().show();
+    }    
+  });
+}
