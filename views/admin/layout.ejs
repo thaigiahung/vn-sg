@@ -30,6 +30,8 @@
 
   <link rel="stylesheet" href="/admin/css/app.css">
 
+  <link rel="stylesheet" href="/admin/css/plugins/chosen/chosen.min.css">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -125,11 +127,25 @@
   <script src="/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
   <script src="/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
 
+  <script src="/admin/js/plugins/chosen/chosen.jquery.min.js"></script>
+
   <!-- Custom Theme JavaScript -->
   <script src="/admin/js/sb-admin-2.js"></script>
 
   <script src="/admin/js/app.js"></script>
 
+  <script>
+    var config = {
+      '.chosen-select'           : {},
+      '.chosen-select-deselect'  : {allow_single_deselect:true},
+      '.chosen-select-no-single' : {disable_search_threshold:10},
+      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+      '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+      $(selector).chosen(config[selector]);
+    }
+  </script>
 </body>
 
 </html>

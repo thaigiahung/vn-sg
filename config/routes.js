@@ -54,6 +54,7 @@ module.exports.routes = {
 
   'GET /manage': 'CategoryController.manage',
   'GET /manage/category': 'CategoryController.manage',
+  'GET /manage/product': 'ProductController.manage',
   'POST /entity/update': 'ServiceController.updateEntity',
   'POST /entity/create': 'ServiceController.createEntity',
 };

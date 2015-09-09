@@ -101,5 +101,31 @@ module.exports = {
       });
     });    
   },
+
+  manage: function(req, res) {
+    CategoryService.getAllCategories(function (categories) {
+      Product.find().populate('category').exec(function (err, products) {
+        if(err || !products) {
+          return res.view('admin/product', {layout: 'admin/layout', data: []});
+        }
+        else {
+          var data = [];
+          async.eachSeries(products, function iterator(product, callback) {
+            ProductImages.find({
+              product: product.id, 
+              status: 1
+            }).exec(function (err, images) {
+              product.images = images
+
+              data.push(product);
+              callback(null, data);
+            });          
+          }, function done() {
+            return res.view('admin/product', {layout: 'admin/layout', data: data, categories: categories});
+          });        
+        }
+      });
+    });
+  },
 };
 

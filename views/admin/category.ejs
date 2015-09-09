@@ -19,7 +19,7 @@
             <thead>
               <tr>
                 <th>Id</th>
-                <th>name</th>
+                <th>Name</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -31,9 +31,7 @@
                     <p><%= obj.id %></p>
                   </td>
                   <td>
-                    <input type="hidden" value="<%= obj.id %>">
-                    <input type="hidden" value="name">
-                    <p contenteditable="true" class="manage-category-name">
+                    <p contenteditable="true" class="inline-edit-name">
                       <%= obj.name %>
                     </p>                    
                   </td>

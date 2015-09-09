@@ -1,0 +1,173 @@
+<input type="hidden" id="modelName" value="Product">
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Manage Product</h1>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        List of products
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover" id="tableProduct">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Sold</th>
+                <th>Revenue</th>
+                <th>Priority</th> 
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="tableProductBody">
+              <% _.each(data, function (obj) { %>
+                <tr>
+                  <td>
+                    <a href="/manage/product/<%= obj.id %>"><%= obj.id %></a>
+                  </td>          
+                  <td>
+                    <p contenteditable="true" class="inline-edit-name">
+                      <%= obj.name %>
+                    </p>                    
+                  </td>
+                  <td><%= obj.category.name %></td>
+                  <td contenteditable="true" class="inline-edit-price"><%= obj.price %></td>
+                  <td contenteditable="true" class="inline-edit-quantity"><%= obj.quantity %></td>
+                  <td><a href="/manage/product/<%= obj.id %>"><%= obj.sold %></a></td>
+                  <td><a href="/manage/product/<%= obj.id %>"><%= obj.revenue %></a></td>
+                  <td contenteditable="true" class="inline-edit-priority"><%= obj.priority %></td>
+                  
+                  <% if (obj.status == 1) { %>
+                    <td>Active</td>
+                  <% } else { %>
+                    <td>Disable</td>
+                  <% } %>
+                  <td>
+                    <% if (obj.status == 1) { %>
+                      <button type="button" onclick="disableItem(this,'Product',<%= obj.id %>,'status')" class="btn btn-danger">Disable</button>
+                      <button style="display: none;" type="button" onclick="activeItem(this,'Product',<%= obj.id %>,'status')" class="btn btn-success">Active</button>
+                    <% } else { %>
+                      <button style="display: none;" type="button" onclick="disableItem(this,'Product',<%= obj.id %>,'status')" class="btn btn-danger">Disable</button>
+                      <button type="button" onclick="activeItem(this,'Product',<%= obj.id %>,'status')" class="btn btn-success">Active</button>
+                    <% } %>
+                  </td>                            
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.table-responsive -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-lg btn-primary add" data-toggle="modal" data-target="#modalCreateProduct">Create product</button>                    
+        </div>
+      </div>
+      <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+
+    <div id="modalCreateProduct" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Create Product</h4>
+          </div>
+
+          <div class="modal-body">
+            <div id="message" class="alert alert-danger" role="alert" style="display: none;"></div>
+            <form id="frmCreateProduct" role="form">
+              <div id="divModalError" class="form-group">
+                <label id="lblModalError" for="object-name"></label>
+              </div>
+
+              <div class="form-group">
+                <select id="ddlCategory" data-placeholder="Choose a category..." class="chosen-select" tabindex="2">
+                  <option value=""></option> 
+                  <% for(var i = 0; i < categories.length; i++) {%>
+                    <option value="<%= categories[i].id %>"><%= categories[i].name %></option>
+                  <% } %>                    
+                </select>
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control" id="txtName" placeholder="Name" maxlength="20" required autofocus>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="txtPrice" placeholder="Price" maxlength="20" required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="txtQuantity" placeholder="Quantity" maxlength="20" required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="txtPriority" placeholder="Priority" maxlength="20">
+              </div>
+              <div class="form-group">
+                  <label class="checkbox-inline">
+                      <input type="checkbox" id="chkOutOfStock">Out of stock
+                  </label>
+              </div>
+              <div class="form-group">
+                <textarea id="txtDescription" style="width:100%" placeholder="Description"></textarea>
+              </div>
+
+              <div class="modalCreateCategoryFooter">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>         
+          
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Error</h4>
+          </div>
+          <div class="modal-body" id="errorModelMessage">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+
+<script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+<script src="/admin/js/plugins/tinymce/plugins/placeholder/plugin.js"></script>
+
+<script>
+  tinymce.init({
+      selector: "textarea",
+      plugins: [
+          "advlist autolink lists link image charmap print preview anchor",
+          "searchreplace visualblocks code fullscreen",
+          "insertdatetime media table contextmenu paste placeholder"
+      ],
+      toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+  });
+</script>

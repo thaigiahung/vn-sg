@@ -1,3 +1,11 @@
 .modalCreateCategoryFooter {
   text-align: right;
 }
+
+#tableProductBody img {
+  max-width: 100px;
+}
+
+.chosen-container {
+  width: 150px !important;
+}

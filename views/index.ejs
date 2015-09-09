@@ -57,8 +57,13 @@
                   <a href="/product/<%= obj.id %>">
                     <figure class="product-display">
                       <div class="sale-label sale-top-left">Sale</div>
-                      <img src="<%= obj.images[0].url %>" class="lazyOwl product-mainpic" alt="" style="display: block;" > 
-                      <img class="product-secondpic" alt="" src="<%= obj.images[0].url %>" width="258"> 
+                      <% if (obj.images.length > 0) { %>
+                        <img src="<%= obj.images[0].url %>" class="lazyOwl product-mainpic" alt="" style="display: block;" > 
+                        <img class="product-secondpic" alt="" src="<%= obj.images[0].url %>" width="258">
+                      <% } else { %>
+                        <img src="/images/products/default.jpg" class="lazyOwl product-mainpic" alt="" style="display: block;" > 
+                        <img class="product-secondpic" alt="" src="/images/products/default.jpg" width="258">
+                      <% } %>
                     </figure>
                   </a> 
                 </div>

@@ -7,19 +7,23 @@
           <div class="new-label new-top-left"> New </div>
           <div class="product-image">
             <div class="large-image"> 
-              <a href="<%= data.images[0].url %>" class="cloud-zoom" id="zoom1" rel="useWrapper: false, adjustY:0, adjustX:20"> 
-                <img src="<%= data.images[0].url %>" alt=""> 
-              </a> 
+              <% if(data.images.length > 0) { %>
+                <a href="<%= data.images[0].url %>" class="cloud-zoom" id="zoom1" rel="useWrapper: false, adjustY:0, adjustX:20"> 
+                  <img src="<%= data.images[0].url %>" alt=""> 
+                </a>
+              <% } %> 
             </div>
             <div class="flexslider flexslider-thumb">
               <ul class="previews-list slides">
-                <% _.each(data.images, function (obj) { %>
-                <li>
-                  <a href='<%= obj.url %>' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '<%= obj.url %>' ">
-                    <img src="<%= obj.url %>" alt = ""/>
-                  </a>
-                </li>
-                <% }) %>
+                <% if(data.images.length > 0) { %>
+                  <% _.each(data.images, function (obj) { %>
+                  <li>
+                    <a href='<%= obj.url %>' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '<%= obj.url %>' ">
+                      <img src="<%= obj.url %>" alt = ""/>
+                    </a>
+                  </li>
+                  <% }) %>
+                <% } %>
               </ul>
             </div>
           </div>
