@@ -63,6 +63,8 @@ module.exports.policies = {
     viewProductByCategory: true,
     viewDetail: true,
     manage: true,
+    manageDetail: true,
+    updateProduct: true,
   },
   ServiceController: {
     updateEntity: true,

@@ -133,7 +133,7 @@ $('#frmCreateProduct').submit(function(event){
     price: $('#txtPrice').val(),
     quantity: $('#txtQuantity').val(),
     priority: (!$('#txtPriority').val()) ? 0 : $('#txtPriority').val(),
-    description: $('#txtDescription').val(),
+    description: tinyMCE.activeEditor.getContent(),
   }
   
   $.post( "/entity/create", {
@@ -176,6 +176,30 @@ $('#frmCreateProduct').submit(function(event){
       );
     }
   });
+});
+
+$('#btnUpdateProduct').click(function (event) {
+  var id = $('#hdId').val();
+  var data = {
+    category: $('#ddlCategory').val(),
+    name: $('#txtName').val(),
+    price: $('#txtPrice').val(),
+    quantity: $('#txtQuantity').val(),
+    priority: (!$('#txtPriority').val()) ? 0 : $('#txtPriority').val(),
+    outOfStock: $('#chkOutOfStock').is(':checked') ? 1 : 0,
+    description: tinyMCE.activeEditor.getContent(),
+  }
+  
+  $.post( '/product/'+id, {
+    data: JSON.stringify(data)
+  }).done(function( result ) {
+    $('#modalMessageBody').text(result.message);
+    $('#modalMessage').modal();
+  });  
+});
+
+$('.cancel').click(function (event) {
+  history.go(-1);
 });
 /* --------------- End Button Click --------------- */
 

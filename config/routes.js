@@ -45,16 +45,22 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+
+  //VIEW
   'GET /': 'ProductController.view',
   'GET /product/:id': 'ProductController.viewDetail',
   'GET /category/:id': 'ProductController.viewProductByCategory',
   'GET /cart': 'OrderController.viewCart',
   'GET /checkout': 'OrderController.checkout',
-  'POST /order': 'OrderController.order',
-
   'GET /manage': 'CategoryController.manage',
   'GET /manage/category': 'CategoryController.manage',
   'GET /manage/product': 'ProductController.manage',
+  'GET /manage/product/:id': 'ProductController.manageDetail',
+  
+
+  //API
+  'POST /order': 'OrderController.order',
   'POST /entity/update': 'ServiceController.updateEntity',
   'POST /entity/create': 'ServiceController.createEntity',
+  'POST /product/:id': 'ProductController.updateProduct',
 };

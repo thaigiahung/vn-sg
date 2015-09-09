@@ -127,5 +127,51 @@ module.exports = {
       });
     });
   },
+
+  manageDetail: function(req, res) {
+    CategoryService.getAllCategories(function (categories) {
+      Product.findOne({id: req.params.id}).populate('category').exec(function (err, product) {
+        if(err || !product) {
+          return res.view('admin/detail', {layout: 'admin/layout', data: []});
+        }
+        else {
+          ProductImages.find({
+            product: product.id, 
+            status: 1
+          }).exec(function (err, images) {
+            if(err || !images) {
+              images = [];
+            }
+            product.images = images;
+            return res.view('admin/detail', {layout: 'admin/layout', data: product, categories: categories}); 
+          });
+        }
+      });
+    });
+  },
+  updateProduct: function(req, res) {
+    var data = JSON.parse(req.body.data);
+    var id = req.params.id;
+    
+    Product.update(
+      {id: id},
+      data
+    ).exec(function (err, updated) {          
+      if(err || !updated) {
+        return res.json({
+          status: 0,
+          message: "Cannot update this product!",
+          data: {}
+        });
+      }
+      else {
+        return res.json({
+          status: 1,
+          message: "Product updated successfully!",
+          data: updated
+        });
+      }
+    });
+  },
 };
 
