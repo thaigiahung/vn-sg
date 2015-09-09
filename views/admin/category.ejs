@@ -44,11 +44,11 @@
 
                   <td>
                     <% if (obj.status == 1) { %>
-                      <button type="button" onclick="disableItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-danger">Disable</button>
-                      <button style="display: none;" type="button" onclick="activeItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-success">Active</button>
+                      <button type="button" onclick="disableItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-outline btn-danger">Disable</button>
+                      <button style="display: none;" type="button" onclick="activeItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-outline btn-success">Active</button>
                     <% } else { %>
-                      <button style="display: none;" type="button" onclick="disableItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-danger">Disable</button>
-                      <button type="button" onclick="activeItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-success">Active</button>
+                      <button style="display: none;" type="button" onclick="disableItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-outline btn-danger">Disable</button>
+                      <button type="button" onclick="activeItem(this,'Category',<%= obj.id %>,'status')" class="btn btn-outline btn-success">Active</button>
                     <% } %>
                   </td>                            
                 </tr>
@@ -58,7 +58,7 @@
         </div>
         <!-- /.table-responsive -->
         <div class="text-center">
-          <button type="submit" class="btn btn-lg btn-primary add" data-toggle="modal" data-target="#modalCreateCategory">Create category</button>                    
+          <button type="submit" class="btn btn-outline btn-info add" data-toggle="modal" data-target="#modalCreateCategory">Create category</button>                    
         </div>
       </div>
       <!-- /.panel-body -->
@@ -85,8 +85,8 @@
               </div>
 
               <div class="modalCreateCategoryFooter">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-outline btn-warning" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-outline btn-info">Save</button>
               </div>
             </form>
           </div>         
