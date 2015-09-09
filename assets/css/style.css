@@ -96,8 +96,9 @@ a:hover {
 
 ul, ol {
 	padding: 0px;
-	margin: auto;
-	list-style: none;
+	/*margin: auto;*/
+	/*list-style: none;*/
+	margin-left: 30px;
 }
 legend {
 	display: none;
