@@ -5,7 +5,6 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-
 module.exports = {
 	view: function(req, res) {
     CategoryService.getAllCategories(function (categories) {
@@ -172,6 +171,6 @@ module.exports = {
         });
       }
     });
-  },
+  },  
 };
 

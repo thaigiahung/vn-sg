@@ -62,5 +62,62 @@
     </div>
 
   </div>
-  <!-- /.col-lg-12 -->
+  <!-- /.col-lg-12 -->  
 </div>
+
+<div class="product-images-upload-zone">
+  <form action="/file-upload" class="dropzone" id="dropzoneUploadProductImage"></form>
+</div>
+
+<!-- http://stackoverflow.com/questions/24009298/dropzone-js-display-existing-files-on-server -->
+<!-- http://stackoverflow.com/questions/19375389/how-to-upload-and-delete-files-from-dropzone-js -->
+<!-- http://www.jqueryajaxphp.com/upload-resize-image-dropzone-php/ -->
+
+<script src="/admin/js/plugins/dropzone/dropzone.js"></script>
+
+<script>
+  Dropzone.options.dropzoneUploadProductImage = {
+    init: function() {
+      <% for(var i = 0; i < data.images.length; i++) {%>
+        var mockFile = { name: '<%= data.images[i].id %>', size: 12345 };
+        var thisDropzone = this;
+        thisDropzone.options.addedfile.call(thisDropzone, mockFile);
+        thisDropzone.options.thumbnail.call(thisDropzone, mockFile, '<%= data.images[i].url %>');
+      <% } %>
+
+      // Call API remove image when the removedfile event is triggered
+      // this.on("removedfile", function(file) {
+      //   $.post( "/product/<%= data.id %>/image/remove", {id: file.name})
+      //   .done(function( result ) {
+      //     $('#modalMessageBody').text(result.message);
+      //     $('#modalMessage').modal();
+      //   });
+      // });  
+    }, 
+    paramName: "file", // The name that will be used to transfer the file
+    url: "/product/<%= data.id %>/image",
+    maxFilesize: 5, // MB,
+    acceptedFiles: "image/*",
+    thumbnailWidth: 150,
+    thumbnailHeight: null,
+    dictDefaultMessage: 'Drop files here or click to upload',
+    dictFileTooBig: "Max file size is {{filesize}}MB",
+    dictInvalidFileType: "Only image can be uploaded",
+    addRemoveLinks: true,
+    removedfile: function(file) { 
+      $.post( "/product/<%= data.id %>/image/remove", {id: file.name})
+      .done(function( result ) {
+        $('#modalMessageBody').text(result.message);
+        $('#modalMessage').modal();
+
+        if(result.status == 1) {
+          var _ref; // Remove file on clicking the 'Remove file' button
+          return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+        }
+      });
+    },
+    accept: function(file, done) {
+      done();
+    }
+  };
+</script>

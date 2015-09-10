@@ -63,4 +63,6 @@ module.exports.routes = {
   'POST /entity/update': 'ServiceController.updateEntity',
   'POST /entity/create': 'ServiceController.createEntity',
   'POST /product/:id': 'ProductController.updateProduct',
+  'POST /product/:id/image': 'ProductImagesController.uploadImage',
+  'POST /product/:id/image/remove': 'ProductImagesController.removeImage',
 };

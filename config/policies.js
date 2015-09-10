@@ -64,10 +64,15 @@ module.exports.policies = {
     viewDetail: true,
     manage: true,
     manageDetail: true,
-    updateProduct: true,
+    updateProduct: true,    
   },
   ServiceController: {
     updateEntity: true,
     createEntity: true,
+  },
+  ProductImagesController: {
+    uploadImage: true,
+    removeImage: true,
   }
+
 };
