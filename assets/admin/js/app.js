@@ -7,8 +7,8 @@ $( document ).ready(function() {
     $('#tableProduct').DataTable();
   }
 
-  if($('#tableNewOrder').length > 0){
-    $('#tableNewOrder').DataTable();
+  if($('#tableOrder').length > 0){
+    $('#tableOrder').DataTable();
   }
 });
 

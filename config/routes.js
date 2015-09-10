@@ -56,8 +56,11 @@ module.exports.routes = {
   'GET /manage/category': 'CategoryController.manage',
   'GET /manage/product': 'ProductController.manage',
   'GET /manage/product/:id': 'ProductController.manageDetail',
-  'GET /order/new': 'OrderController.viewNew',
-  'GET /order/:id/detail': 'OrderController.viewDetail',
+  'GET /manage/order/all': 'OrderController.viewAll',
+  'GET /manage/order/new': 'OrderController.viewNew',
+  'GET /manage/order/confirmed': 'OrderController.viewConfirmed',
+  'GET /manage/order/canceled': 'OrderController.viewCanceled',
+  'GET /manage/order/:id/detail': 'OrderController.viewDetail',
   
 
   //API
