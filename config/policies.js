@@ -56,7 +56,9 @@ module.exports.policies = {
   OrderController: {
     viewCart: true,
     checkout: true,
-    order: true,    
+    order: true, 
+    viewNew: true,
+    viewDetail: true,
   },
   ProductController: {
     view: true,

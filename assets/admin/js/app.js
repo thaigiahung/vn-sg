@@ -6,6 +6,10 @@ $( document ).ready(function() {
   if($('#tableProduct').length > 0){
     $('#tableProduct').DataTable();
   }
+
+  if($('#tableNewOrder').length > 0){
+    $('#tableNewOrder').DataTable();
+  }
 });
 
 

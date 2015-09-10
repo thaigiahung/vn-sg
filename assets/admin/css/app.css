@@ -13,3 +13,15 @@
 .product-images-upload-zone {
   margin-bottom: 40px;
 }
+
+#map-canvas
+{
+  max-width: 100%;
+  height: 400px;
+}
+
+.grandTotal {
+  font-weight: bold;
+  font-size: 16px;
+  color: #7bbd42;
+}

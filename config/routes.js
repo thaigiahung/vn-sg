@@ -56,6 +56,8 @@ module.exports.routes = {
   'GET /manage/category': 'CategoryController.manage',
   'GET /manage/product': 'ProductController.manage',
   'GET /manage/product/:id': 'ProductController.manageDetail',
+  'GET /order/new': 'OrderController.viewNew',
+  'GET /order/:id/detail': 'OrderController.viewDetail',
   
 
   //API

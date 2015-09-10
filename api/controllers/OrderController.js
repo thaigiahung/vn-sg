@@ -85,5 +85,39 @@ module.exports = {
       });
     }
   },
+  viewNew: function(req, res) {
+    Order.find({
+      status: 1
+    }).exec(function (err, orders) {
+      if(err || !orders) {
+        return res.view('admin/order-new', {layout: 'admin/layout', data: {}});
+      }
+      else {
+        return res.view('admin/order-new', {layout: 'admin/layout', data: orders});
+      } 
+    });
+  },
+  viewDetail: function(req, res) {
+    var orderId = req.params.id;
+    Order.findOne({
+      id: orderId
+    }).exec(function (err, order) {
+      if(err || !order) {
+        return res.view('admin/order-new', {layout: 'admin/layout', order: {}, orderDetails: []});
+      }
+      else {
+        OrderDetail.find({
+          order: orderId
+        }).populate('product').exec(function (err, orderDetails) {
+          if(err || !orderDetails) {
+            return res.view('admin/order-detail', {layout: 'admin/layout', order: order, orderDetails: []});
+          }
+          else {
+            return res.view('admin/order-detail', {layout: 'admin/layout', order: order, orderDetails: orderDetails});
+          } 
+        });
+      } 
+    });
+  },
 };
 
