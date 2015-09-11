@@ -47,13 +47,14 @@
                 <% if(type == 'all') { %>
                   <td>
                     <% if(obj.status == 1) { %>
-                      New
+                      <span class="new">New</span>                      
                     <% } else if(obj.status == 2) { %>
-                      Confirmed
+                      <span class="confirmed">Confirmed</span>
+                      
                     <% } else if(obj.status == 3) { %>
-                      Canceled
+                      <span class="canceled">Canceled</span>                      
                     <% } else { %>
-                      Unknown
+                      <span>Unknown</span>
                     <% } %>
                   </td>
                 <% } %>

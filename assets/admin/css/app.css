@@ -30,10 +30,9 @@
   text-transform: uppercase;
 }
 
-#orderStatus {
+.orderStatus {
   font-weight: bold;
   font-size: 20px;
-  color: #7bbd42;
 }
 
 .center {
@@ -47,3 +46,16 @@
 .right {
   text-align: right;
 }
+
+.new {
+  color: #5bc0de;
+}
+
+.confirmed {
+  color: #7bbd42;
+}
+
+.canceled {
+  color: #d9534f;
+}
+

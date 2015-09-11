@@ -104,17 +104,15 @@
       </div>
       <!-- /.panel-heading -->
       <div class="panel-body">
-        <div>
-          <strong>Status: </strong>
-          <span id="orderStatus">
-            <% if (order.status == 1) { %>
-              New
-            <% } else if(order.status == 2) { %>
-              Confirmed
-            <% } else if(order.status == 3) { %>
-              Canceled
-            <% } %>
-          </span>          
+        <div class="orderStatus">
+          Status:
+          <% if(order.status == 1) { %>
+            <span id="orderStatus" class="new">New</span>                      
+          <% } else if(order.status == 2) { %>
+            <span id="orderStatus" class="confirmed">Confirmed</span>            
+          <% } else if(order.status == 3) { %>
+            <span id="orderStatus" class="canceled">Canceled</span>   
+          <% } %>        
         </div>
         <table class="table table-hover" id="tableOrderDetail">
           <thead>
