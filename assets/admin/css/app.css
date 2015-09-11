@@ -29,3 +29,21 @@
 .order-header {
   text-transform: uppercase;
 }
+
+#orderStatus {
+  font-weight: bold;
+  font-size: 20px;
+  color: #7bbd42;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}

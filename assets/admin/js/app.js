@@ -205,6 +205,42 @@ $('#btnUpdateProduct').click(function (event) {
 $('.cancel').click(function (event) {
   history.go(-1);
 });
+
+$('#btnConfirmOrder').click(function (event) {
+  var data = {
+    model_name: 'Order',
+    id: $('#hdOrderID').val(),
+    field: 'status',
+    value: 2
+  }
+
+  $.post( "/entity/update", data).done(function( result ) {
+    $('#modalMessageBody').text(result.message);
+    $('#modalMessage').modal();
+    
+    if(result.status == 1) {
+      $('#orderStatus').text('Confirmed');
+    }
+  });
+});
+
+$('#btnCancelOrder').click(function (event) {
+  var data = {
+    model_name: 'Order',
+    id: $('#hdOrderID').val(),
+    field: 'status',
+    value: 3
+  }
+
+  $.post( "/entity/update", data).done(function( result ) {
+    $('#modalMessageBody').text(result.message);
+    $('#modalMessage').modal();
+    console.log(result)
+    if(result.status == 1) {
+      $('#orderStatus').text('Canceled');
+    }
+  });
+});
 /* --------------- End Button Click --------------- */
 
 
