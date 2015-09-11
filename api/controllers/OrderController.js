@@ -5,6 +5,8 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+var moment = require('moment-timezone');
+
 module.exports = {
   viewCart: function(req, res) {
     CategoryService.getAllCategories(function (categories) {
@@ -144,10 +146,10 @@ module.exports = {
           order: orderId
         }).populate('product').exec(function (err, orderDetails) {
           if(err || !orderDetails) {
-            return res.view('admin/order-detail', {layout: 'admin/layout', order: order, orderDetails: []});
+            return res.view('admin/order-detail', {layout: 'admin/layout', moment: moment, order: order, orderDetails: []});
           }
           else {
-            return res.view('admin/order-detail', {layout: 'admin/layout', order: order, orderDetails: orderDetails});
+            return res.view('admin/order-detail', {layout: 'admin/layout', moment: moment, order: order, orderDetails: orderDetails});
           } 
         });
       } 

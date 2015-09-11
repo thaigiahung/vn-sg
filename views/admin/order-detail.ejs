@@ -34,31 +34,37 @@
               <td><%= order.phone %></td>
             </tr>
             <tr>
-              <td>SG Time</td>
+              <td>Order at (SG Time)</td>
               <td>:</td>
-              <td><%= order.createdAt %></td>
+              <td><%= moment(order.createdAt).tz('asia/singapore').format("DD/MM/YYYY hh:mm:ss a") %></td>
             </tr>
             <tr>
-              <td>VN Time</td>
+              <td>Order at (VN Time)</td>
               <td>:</td>
-              <td><%= order.createdAt %></td>
+              <td><%= moment(order.createdAt).tz('asia/ho_chi_minh').format("DD/MM/YYYY hh:mm:ss a") %></td>
             </tr>
 
             <% if(order.status == 2) { %>              
               <tr>
-                <td>
-                  Confirmed
-                </td>
+                <td>Confirmed at (SG Time)</td>
                 <td>:</td>
-                <td><%= order.updatedAt %></td>
+                <td><%= moment(order.updatedAt).tz('asia/singapore').format("DD/MM/YYYY hh:mm:ss a") %></td>
+              </tr>
+              <tr>
+                <td>Confirmed at (VN Time)</td>
+                <td>:</td>
+                <td><%= moment(order.updatedAt).tz('asia/ho_chi_minh').format("DD/MM/YYYY hh:mm:ss a") %></td>
               </tr>
             <% } else if(order.status == 3) { %>              
               <tr>
-                <td>
-                  Canceled
-                </td>
+                <td>Canceled at (SG Time)</td>
                 <td>:</td>
-                <td><%= order.updatedAt %></td>
+                <td><%= moment(order.updatedAt).tz('asia/singapore').format("DD/MM/YYYY hh:mm:ss a") %></td>
+              </tr>
+              <tr>
+                <td>Canceled at (VN Time)</td>
+                <td>:</td>
+                <td><%= moment(order.updatedAt).tz('asia/ho_chi_minh').format("DD/MM/YYYY hh:mm:ss a") %></td>
               </tr>
             <% } %>            
           </table>
@@ -156,6 +162,8 @@
     </div>
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 
 
 <script>
