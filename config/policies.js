@@ -64,6 +64,7 @@ module.exports.policies = {
     viewCanceled: true,
   },
   ProductController: {
+    find: true,
     view: true,
     viewProductByCategory: true,
     viewDetail: true,

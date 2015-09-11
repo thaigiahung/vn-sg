@@ -122,8 +122,9 @@ $( document ).ready(function() {
       $('#cartGrandTotal').text(total + " SGD");
     }
 
-    // If this is view Checkout => hide side-nav-categories
+    // If this is view Checkout
     if($('#btnCheckout').length > 0) {
+      //Hide side-nav-categories
       $('#side-nav-categories').remove();
 
       //If personalInfo exist => append it to frmCheckout
@@ -139,7 +140,18 @@ $( document ).ready(function() {
         $('#txtLat').val(personalInfo.lat),
         $('#txtLng').val(personalInfo.lng),
         $('#txtPhone').val(personalInfo.phone)
-      }
+      }     
+    }
+
+    // If this is view product detail
+    if($('#txtQty').length > 0) {
+      mixpanel.track(
+        "View Product",
+        { 
+          "ip_address": $('#hdIP').val(),
+          "product": $('#h1ProductName').text()
+        }
+      );
     }
   } 
   else {
@@ -152,23 +164,47 @@ $( document ).ready(function() {
 
 /* --------------- Button Click --------------- */
 $('.btn-checkout').click(function (event) {
+  mixpanel.track(
+    "View Checkout",
+    { 
+      "ip_address": $('#hdIP').val()
+    }
+  );
+
   redirect("/checkout");
 });
 
 $('.view-cart').click(function (event) {
+  mixpanel.track(
+    "View Cart",
+    { 
+      "ip_address": $('#hdIP').val()
+    }
+  );
+
   redirect("/cart");
 });
 
 $('.btn-continue').click(function (event) {
+  mixpanel.track(
+    "Continue Shopping",
+    { 
+      "ip_address": $('#hdIP').val()
+    }
+  );
+
   redirect("/");
 });
 
 $('#empty_cart_button').click(function (event) {
-  clearCart();
-});
+  mixpanel.track(
+    "Empty Cart",
+    { 
+      "ip_address": $('#hdIP').val()
+    }
+  );
 
-$('#btnProceedCheckout').click(function (event) {
-  redirect('/checkout');
+  clearCart();
 });
 
 $('#btnOk').click(function (event) {
@@ -181,15 +217,23 @@ $('#frmCheckout').submit(function(event){
   // cancels the form submission
   event.preventDefault();
 
+  var fitstName = $('#txtFirstName').val();
+  var lastName = $('#txtLastName').val();
+  var email = $('#txtEmail').val();
+  var address = $('#txtAddress').val();
+  var lat = $('#txtLat').val();
+  var lng = $('#txtLng').val();
+  var phone = $('#txtPhone').val();
+
   // do whatever you want here
   var data = {
-    first_name: $('#txtFirstName').val(),
-    last_name: $('#txtLastName').val(),
-    email: $('#txtEmail').val(),
-    address: $('#txtAddress').val(),
-    lat: $('#txtLat').val(),
-    lng: $('#txtLng').val(),
-    phone: $('#txtPhone').val(),
+    first_name: fitstName,
+    last_name: lastName,
+    email: email,
+    address: address,
+    lat: lat,
+    lng: lng,
+    phone: phone,
     products: localStorage.products,
     quantities: localStorage.quantities,
     total: parseFloat(localStorage.total)
@@ -197,13 +241,13 @@ $('#frmCheckout').submit(function(event){
 
   //Save receiver info in localStorage
   var personalInfo = {
-    firstName: $('#txtFirstName').val(),
-    lastName: $('#txtLastName').val(),
-    email: $('#txtEmail').val(),
-    address: $('#txtAddress').val(),
-    lat: $('#txtLat').val(),
-    lng: $('#txtLng').val(),
-    phone: $('#txtPhone').val()
+    firstName: fitstName,
+    lastName: lastName,
+    email: email,
+    address: address,
+    lat: lat,
+    lng: lng,
+    phone: phone
   }
   localStorage.personalInfo = JSON.stringify(personalInfo);  
 
@@ -213,18 +257,49 @@ $('#frmCheckout').submit(function(event){
       $('#btnCancel').remove();
     }
     
+    mixpanel.track(
+      "Checkout",
+      { 
+        "ip_address": $('#hdIP').val(),
+        "firstName": firstName,
+        "email": email,
+        "address": address,
+        "phone": phone,
+        "status": (result.status == 1) ? 'Success' : 'Fail'
+      }
+    );
+
     $('#modalMessageBody').text(result.message);
     $('#modalMessage').modal();
   });
 });
 
 $(document).on("click", "a.remove-element" , function() {
+  var productName = $(this).siblings().eq(0).text();
+  mixpanel.track(
+    "Remove Product",
+    { 
+      "ip_address": $('#hdIP').val(),
+      "product": productName
+    }
+  );
+
   // Get product id
   var id = this.title;
   updateCartAfterRemoveEle(id);
 });
 
 $(document).on("click", "a.remove-item" , function() {
+  var productName = $(this).parent().parent().children("td").eq(1).children().eq(0).children().eq(0).text()
+
+  mixpanel.track(
+    "Remove product",
+    { 
+      "ip_address": $('#hdIP').val(),
+      "product": productName
+    }
+  );
+
   // Get product id
   var id = this.title;
   updateCartAfterRemoveEle(id);  
@@ -249,6 +324,16 @@ $(document).on("change", "input.qty" , function() {
     var oldSubTotal = oldQty * price;
     var newSubTotal = newQty * price;
     total = total - oldSubTotal + newSubTotal;
+
+    mixpanel.track(
+      "Change quantity",
+      { 
+        "ip_address": $('#hdIP').val(),
+        "product": products[pos].name,
+        "old_quantity": oldQty,
+        "new_quantity": newQty
+      }
+    );
 
     //Update cart body
     $('#shopping-cart-table-body').children().eq(pos).children().eq(4).children().children().text(newSubTotal + " SGD");
@@ -312,7 +397,9 @@ function updateSidebarCart (product, qty) {
 }
 
 function addCart (product, qty) {
-  qty = parseInt(qty)
+  qty = parseInt(qty);
+  var status;
+
   //Add this item to localStorage
   if(typeof(Storage) !== "undefined") {
     var products = localStorage.products;
@@ -383,11 +470,25 @@ function addCart (product, qty) {
                               '</tr>'
                             );
     $('#modalCart').modal();
+
+    status = 'Success';
   } 
   else {
     $('#modalMessageBody').text("Sorry! Your browser does not support Web Storage");
     $('#modalMessage').modal();
+
+    status = 'Fail';
   }
+
+  mixpanel.track(
+    "Add To Cart",
+    { 
+      "ip_address": $('#hdIP').val(),
+      "product": product.name,
+      "quantity": qty,
+      "status": status
+    }
+  );
 };
 
 function clearLocalStorage () {

@@ -10,12 +10,12 @@ var moment = require('moment-timezone');
 module.exports = {
   viewCart: function(req, res) {
     CategoryService.getAllCategories(function (categories) {
-      return res.view('cart', {categories: categories});
+      return res.view('cart', {ip: req.ip, categories: categories});
     });    
   },
   checkout: function(req, res) {
     CategoryService.getAllCategories(function (categories) {
-      return res.view('checkout', {categories: categories});
+      return res.view('checkout', {ip: req.ip, categories: categories});
     });    
   },
   order: function(req, res) {

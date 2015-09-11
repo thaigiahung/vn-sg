@@ -32,7 +32,7 @@ module.exports = {
               callback(null, data);
             });          
           }, function done() {
-            return res.view('index', {categories: categories, data: data});
+            return res.view('index', {ip: req.ip, categories: categories, data: data});
           });        
         }
       });
@@ -66,7 +66,7 @@ module.exports = {
               callback(null, data);
             });          
           }, function done() {
-            return res.view('index', {categories: categories, data: data});
+            return res.view('index', {ip: req.ip, categories: categories, data: data});
           });        
         }
       });
@@ -94,7 +94,7 @@ module.exports = {
               description: product.description,            
               images: images
             }
-            res.view('detail', {categories: categories, data: data});
+            res.view('detail', {ip: req.ip, categories: categories, data: data});
           });       
         }
       });
