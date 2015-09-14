@@ -217,7 +217,7 @@ $('#frmCheckout').submit(function(event){
   // cancels the form submission
   event.preventDefault();
 
-  var fitstName = $('#txtFirstName').val();
+  var firstName = $('#txtFirstName').val();
   var lastName = $('#txtLastName').val();
   var email = $('#txtEmail').val();
   var address = $('#txtAddress').val();
@@ -227,7 +227,7 @@ $('#frmCheckout').submit(function(event){
 
   // do whatever you want here
   var data = {
-    first_name: fitstName,
+    first_name: firstName,
     last_name: lastName,
     email: email,
     address: address,
@@ -241,7 +241,7 @@ $('#frmCheckout').submit(function(event){
 
   //Save receiver info in localStorage
   var personalInfo = {
-    firstName: fitstName,
+    firstName: firstName,
     lastName: lastName,
     email: email,
     address: address,
@@ -262,6 +262,7 @@ $('#frmCheckout').submit(function(event){
       { 
         "ip_address": $('#hdIP').val(),
         "firstName": firstName,
+        "lastName": lastName,
         "email": email,
         "address": address,
         "phone": phone,

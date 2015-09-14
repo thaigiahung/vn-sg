@@ -10,6 +10,9 @@ module.exports = {
   attributes: {
     id: { type: 'integer', autoIncrement: true, primaryKey: true },
     user: { model: 'User' },
+    uuid: { type: 'string' },
+    email: { type: 'string' },
+    emailResult: { type: 'text' },
     receiver: { type: 'string' },
     address: { type: 'string' },
     lat: { type: 'float' },

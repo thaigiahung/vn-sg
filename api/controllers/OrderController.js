@@ -6,6 +6,8 @@
  */
 
 var moment = require('moment-timezone');
+var uuid = require('node-uuid');
+var async = require('async');
 
 module.exports = {
   viewCart: function(req, res) {
@@ -21,6 +23,7 @@ module.exports = {
   order: function(req, res) {
     var firstName = req.body.first_name;
     var lastName = req.body.last_name;
+    var receiver = firstName + " " + lastName;
     var email = req.body.email;
     var address = req.body.address;
     var lat = req.body.lat;
@@ -55,7 +58,9 @@ module.exports = {
     else {
       Order.create({
         user: 1,
-        receiver: firstName + " " + lastName,
+        uuid: uuid.v4(),
+        email: email,
+        receiver: receiver,
         address: address,
         lat: lat,
         lng: lng,
@@ -69,7 +74,8 @@ module.exports = {
           });
         }
         else {
-          products.forEach(function(product, index){
+          var htmlBody = '<table border="0" cellpadding="10" cellspacing="0" id="tableOrderDetail" style="margin: 0 50px;"><thead><tr style="background-color: #f7f7f7;"><td style="border-top: 2px solid #ddd;border-bottom: 2px solid #ddd;">Product</td><td style="border-top: 2px solid #ddd;border-bottom: 2px solid #ddd;">Price</td><td style="border-top: 2px solid #ddd;border-bottom: 2px solid #ddd;">Qty</td><td style="border-top: 2px solid #ddd;border-bottom: 2px solid #ddd;">Subtotal</td></tr></thead><tbody>';
+          async.forEachOfSeries(products, function (product, index, callback) {
             OrderDetail.create({
               order: createdOrder.id,
               product: product.id,
@@ -77,6 +83,18 @@ module.exports = {
               price: product.price,
               total: quantities[index] * product.price
             }).exec(function (err, createdOrderDetail){});
+
+            htmlBody += '<tr><td width="400px" style="border-bottom: 1px solid #ddd;">'+product.name+'</td><td width="150px" style="border-bottom: 1px solid #ddd;">'+product.price+' SGD</td><td width="50px" style="border-bottom: 1px solid #ddd;">'+quantities[index]+'</td><td width="150px" style="border-bottom: 1px solid #ddd;">'+(quantities[index] * product.price)+' SGD</td></tr>';    
+            
+            callback();     
+          }, function done() {
+            htmlBody += '<tr style="color:#7bbd42;font-size:18px;"><td colspan="3">Grand Total</td><td>'+total+' SGD</td></tr></tbody></table>';
+
+            //Send mail
+            EmailService.sendMail(htmlBody, email, 'Receipt', createdOrder.uuid, receiver, phone, address, function (result) {
+              createdOrder.emailResult = JSON.stringify(result);
+              createdOrder.save(function(err,s){});
+            });
           });
 
           return res.json ({
