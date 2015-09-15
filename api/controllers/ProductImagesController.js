@@ -34,9 +34,6 @@ module.exports = {
           });
         }
         else {
-          //Copy file to .tmp
-          fs.createReadStream(uploadPath+originalName).pipe(fs.createWriteStream('./.tmp/public'+url));
-
           ProductImages.create({
             product: id,
             url: url
@@ -48,6 +45,9 @@ module.exports = {
               });
             }
             else {
+              //Copy file to .tmp
+              // fs.createReadStream(uploadPath+originalName).pipe(fs.createWriteStream('./.tmp/public'+url));
+              
               return res.json({
                 status: 1,
                 message: "Image uploaded successfully!"
