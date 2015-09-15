@@ -28,11 +28,16 @@ $( document ).ready(function() {
         var product = products[i];
         var quantity = quantities[i];
 
+        var img = '/images/products/default.jpg';
+        if(product.images.length > 0) {
+          img = product.images[0].url;
+        }
+
         if(i == productsLength-1) {
           $('#cart-sidebar').append(
             '<li class="item last">' +
               '<a class="product-image" href="/product/'+product.id+'">' +
-                '<img src="'+product.images[0].url+'" width="80">' +
+                '<img src="'+img+'" width="80">' +
               '</a>' +
               '<div class="detail-item">' +
                 '<div class="product-details">' +
@@ -56,7 +61,7 @@ $( document ).ready(function() {
           $('#cart-sidebar').append(
             '<li class="item">' +
               '<a class="product-image" href="/product/'+product.id+'">' +
-                '<img src="'+product.images[0].url+'" width="80">' +
+                '<img src="'+img+'" width="80">' +
               '</a>' +
               '<div class="detail-item">' +
                 '<div class="product-details">' +
@@ -88,11 +93,16 @@ $( document ).ready(function() {
         var product = products[i];
         var quantity = quantities[i];
 
+        var img = '/images/products/default.jpg';
+        if(product.images.length > 0) {
+          img = product.images[0].url;
+        }
+
         $('#shopping-cart-table-body').append(
           '<tr>' +
             '<td class="image">' + 
               '<a class="product-image" title="'+product.name+'" href="/product/'+product.id+'">' +
-                '<img alt="'+product.name+'" src="'+product.images[0].url+'">' +
+                '<img alt="'+product.name+'" src="'+img+'">' +
               '</a>' +
             '</td>' +
             '<td>' +
@@ -373,10 +383,14 @@ function updateSidebarCart (product, qty) {
   $('#cart-sidebar li:last-child').removeClass('last');
 
   //Append new products to cart-sidebar
+  var img = '/images/products/default.jpg';
+  if(product.images.length > 0) {
+    img = product.images[0].url;
+  }
   $('#cart-sidebar').append(
                             '<li class="item last">' +
                               '<a class="product-image" href="/product/'+product.id+'">' +
-                                '<img src="'+product.images[0].url+'" width="80">' +
+                                '<img src="'+img+'" width="80">' +
                               '</a>' +
                               '<div class="detail-item">' +
                                 '<div class="product-details">' +
@@ -450,11 +464,16 @@ function addCart (product, qty) {
     $('#cart-total').text(products.length);
     $('#total').text(total + " SGD");    
 
+    var img = '/images/products/default.jpg';
+    if(product.images.length > 0) {
+      img = product.images[0].url;
+    }
+
     $('#modalCartBody').html(
                               '<tr>' +
                                 '<td id="modalCartPreviewTd">' +
                                   '<a href="/product/'+product.id+'">' +
-                                    '<img width="150" src="'+product.images[0].url+'" />' +
+                                    '<img width="150" src="'+img+'" />' +
                                   '</a>' +                            
                                 '</td>' +
                                 '<td>' +
