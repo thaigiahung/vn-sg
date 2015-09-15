@@ -106,72 +106,102 @@ module.exports = {
     }
   },
   viewAll: function(req, res) {
-    Order.find({}).exec(function (err, orders) {
-      if(err || !orders) {
-        return res.view('admin/order', {layout: 'admin/layout', data: {}, type: 'all'});
-      }
-      else {
-        return res.view('admin/order', {layout: 'admin/layout', data: orders, type: 'all'});
-      } 
-    });
+    if(!req.session.user) {
+      return res.view('admin/login', {layout: false});
+    }
+    else 
+    {
+      Order.find({}).exec(function (err, orders) {
+        if(err || !orders) {
+          return res.view('admin/order', {layout: 'admin/layout', data: {}, type: 'all'});
+        }
+        else {
+          return res.view('admin/order', {layout: 'admin/layout', data: orders, type: 'all'});
+        } 
+      });
+    }    
   },
   viewNew: function(req, res) {
-    Order.find({
-      status: 1
-    }).exec(function (err, orders) {
-      if(err || !orders) {
-        return res.view('admin/order', {layout: 'admin/layout', data: {}, type: 'new'});
-      }
-      else {
-        return res.view('admin/order', {layout: 'admin/layout', data: orders, type: 'new'});
-      } 
-    });
+    if(!req.session.user) {
+      return res.view('admin/login', {layout: false});
+    }
+    else 
+    {
+      Order.find({
+        status: 1
+      }).exec(function (err, orders) {
+        if(err || !orders) {
+          return res.view('admin/order', {layout: 'admin/layout', data: {}, type: 'new'});
+        }
+        else {
+          return res.view('admin/order', {layout: 'admin/layout', data: orders, type: 'new'});
+        } 
+      });
+    }    
   },
   viewConfirmed: function(req, res) {
-    Order.find({
-      status: 2
-    }).exec(function (err, orders) {
-      if(err || !orders) {
-        return res.view('admin/order', {layout: 'admin/layout', data: {}, type: 'confirmed'});
-      }
-      else {
-        return res.view('admin/order', {layout: 'admin/layout', data: orders, type: 'confirmed'});
-      } 
-    });
+    if(!req.session.user) {
+      return res.view('admin/login', {layout: false});
+    }
+    else 
+    {
+      Order.find({
+        status: 2
+      }).exec(function (err, orders) {
+        if(err || !orders) {
+          return res.view('admin/order', {layout: 'admin/layout', data: {}, type: 'confirmed'});
+        }
+        else {
+          return res.view('admin/order', {layout: 'admin/layout', data: orders, type: 'confirmed'});
+        } 
+      });
+    }    
   },
   viewCanceled: function(req, res) {
-    Order.find({
-      status: 3
-    }).exec(function (err, orders) {
-      if(err || !orders) {
-        return res.view('admin/order', {layout: 'admin/layout', data: {}, type: 'canceled'});
-      }
-      else {
-        return res.view('admin/order', {layout: 'admin/layout', data: orders, type: 'canceled'});
-      } 
-    });
+    if(!req.session.user) {
+      return res.view('admin/login', {layout: false});
+    }
+    else 
+    {
+      Order.find({
+        status: 3
+      }).exec(function (err, orders) {
+        if(err || !orders) {
+          return res.view('admin/order', {layout: 'admin/layout', data: {}, type: 'canceled'});
+        }
+        else {
+          return res.view('admin/order', {layout: 'admin/layout', data: orders, type: 'canceled'});
+        } 
+      });
+    }    
   },
   viewDetail: function(req, res) {
-    var orderId = req.params.id;
-    Order.findOne({
-      id: orderId
-    }).exec(function (err, order) {
-      if(err || !order) {
-        return res.view('admin/order-new', {layout: 'admin/layout', order: {}, orderDetails: []});
-      }
-      else {
-        OrderDetail.find({
-          order: orderId
-        }).populate('product').exec(function (err, orderDetails) {
-          if(err || !orderDetails) {
-            return res.view('admin/order-detail', {layout: 'admin/layout', moment: moment, order: order, orderDetails: []});
-          }
-          else {
-            return res.view('admin/order-detail', {layout: 'admin/layout', moment: moment, order: order, orderDetails: orderDetails});
-          } 
-        });
-      } 
-    });
+    if(!req.session.user) {
+      return res.view('admin/login', {layout: false});
+    }
+    else 
+    {
+      var orderId = req.params.id;
+      Order.findOne({
+        id: orderId
+      }).exec(function (err, order) {
+        if(err || !order) {
+          return res.view('admin/order-new', {layout: 'admin/layout', order: {}, orderDetails: []});
+        }
+        else {
+          OrderDetail.find({
+            order: orderId
+          }).populate('product').exec(function (err, orderDetails) {
+            if(err || !orderDetails) {
+              return res.view('admin/order-detail', {layout: 'admin/layout', moment: moment, order: order, orderDetails: []});
+            }
+            else {
+              return res.view('admin/order-detail', {layout: 'admin/layout', moment: moment, order: order, orderDetails: orderDetails});
+            } 
+          });
+        } 
+      });
+    }
   },
 };
 

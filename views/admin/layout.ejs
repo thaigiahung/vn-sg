@@ -60,9 +60,9 @@
       <!-- /.navbar-header -->
 
       <ul class="nav navbar-top-links navbar-right">
-        <li>Hello</li>
+        <li>Hello <%= req.session.user.username %></li>
         <li>
-          <a href="/logout">Logout</a>
+          <a href="/manage/logout">Logout</a>
         </li>
       </ul>
       <!-- /.navbar-top-links -->

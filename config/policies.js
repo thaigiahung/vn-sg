@@ -83,5 +83,10 @@ module.exports.policies = {
   TrackingShipmentController: {
     view: true,
   },
-
+  UserController: {
+    viewLogin: true,
+    login: true,
+    logout: true,
+    hash: true,
+  },
 };

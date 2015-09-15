@@ -102,75 +102,96 @@ module.exports = {
   },
 
   manage: function(req, res) {
-    CategoryService.getAllCategories(function (categories) {
-      Product.find().populate('category').exec(function (err, products) {
-        if(err || !products) {
-          return res.view('admin/product', {layout: 'admin/layout', data: []});
-        }
-        else {
-          var data = [];
-          async.eachSeries(products, function iterator(product, callback) {
+    if(!req.session.user) {
+      return res.view('admin/login', {layout: false});
+    }
+    else 
+    {
+      CategoryService.getAllCategories(function (categories) {
+        Product.find().populate('category').exec(function (err, products) {
+          if(err || !products) {
+            return res.view('admin/product', {layout: 'admin/layout', data: []});
+          }
+          else {
+            var data = [];
+            async.eachSeries(products, function iterator(product, callback) {
+              ProductImages.find({
+                product: product.id, 
+                status: 1
+              }).exec(function (err, images) {
+                product.images = images
+
+                data.push(product);
+                callback(null, data);
+              });          
+            }, function done() {
+              return res.view('admin/product', {layout: 'admin/layout', data: data, categories: categories});
+            });        
+          }
+        });
+      });
+    }    
+  },
+
+  manageDetail: function(req, res) {
+    if(!req.session.user) {
+      return res.view('admin/login', {layout: false});
+    }
+    else 
+    {
+      CategoryService.getAllCategories(function (categories) {
+        Product.findOne({id: req.params.id}).populate('category').exec(function (err, product) {
+          if(err || !product) {
+            return res.view('admin/detail', {layout: 'admin/layout', data: []});
+          }
+          else {
             ProductImages.find({
               product: product.id, 
               status: 1
             }).exec(function (err, images) {
-              product.images = images
-
-              data.push(product);
-              callback(null, data);
-            });          
-          }, function done() {
-            return res.view('admin/product', {layout: 'admin/layout', data: data, categories: categories});
-          });        
-        }
+              if(err || !images) {
+                images = [];
+              }
+              product.images = images;
+              return res.view('admin/detail', {layout: 'admin/layout', data: product, categories: categories}); 
+            });
+          }
+        });
       });
-    });
+    }    
   },
-
-  manageDetail: function(req, res) {
-    CategoryService.getAllCategories(function (categories) {
-      Product.findOne({id: req.params.id}).populate('category').exec(function (err, product) {
-        if(err || !product) {
-          return res.view('admin/detail', {layout: 'admin/layout', data: []});
+  updateProduct: function(req, res) {
+    if(!req.session.user) {
+      return res.json({
+        status: 0,
+        message: "Please login!"
+      });
+    }
+    else 
+    {
+      var data = JSON.parse(req.body.data);
+      var id = req.params.id;
+      
+      Product.update(
+        {id: id},
+        data
+      ).exec(function (err, updated) {          
+        if(err || !updated) {
+          return res.json({
+            status: 0,
+            message: "Cannot update this product!",
+            data: {}
+          });
         }
         else {
-          ProductImages.find({
-            product: product.id, 
-            status: 1
-          }).exec(function (err, images) {
-            if(err || !images) {
-              images = [];
-            }
-            product.images = images;
-            return res.view('admin/detail', {layout: 'admin/layout', data: product, categories: categories}); 
+          return res.json({
+            status: 1,
+            message: "Product updated successfully!",
+            data: updated
           });
         }
       });
-    });
-  },
-  updateProduct: function(req, res) {
-    var data = JSON.parse(req.body.data);
-    var id = req.params.id;
-    
-    Product.update(
-      {id: id},
-      data
-    ).exec(function (err, updated) {          
-      if(err || !updated) {
-        return res.json({
-          status: 0,
-          message: "Cannot update this product!",
-          data: {}
-        });
-      }
-      else {
-        return res.json({
-          status: 1,
-          message: "Product updated successfully!",
-          data: updated
-        });
-      }
-    });
+    }    
   },  
 };
 

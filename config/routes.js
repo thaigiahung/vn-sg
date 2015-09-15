@@ -62,6 +62,8 @@ module.exports.routes = {
   'GET /manage/order/canceled': 'OrderController.viewCanceled',
   'GET /manage/order/:id/detail': 'OrderController.viewDetail',
   'GET /tracking': 'TrackingShipmentController.view',
+  'GET /manage/login': 'UserController.viewLogin',
+  'GET /manage/logout': 'UserController.logout',
   
 
   //API
@@ -71,4 +73,6 @@ module.exports.routes = {
   'POST /product/:id': 'ProductController.updateProduct',
   'POST /product/:id/image': 'ProductImagesController.uploadImage',
   'POST /product/:id/image/remove': 'ProductImagesController.removeImage',
+  'POST /manage/login': 'UserController.login',
+  'POST /hash/password': 'UserController.hash',
 };

@@ -7,9 +7,15 @@
 
 module.exports = {
 	manage: function(req, res) {
-    CategoryService.getAllCategories(function (categories) {
-      return res.view('admin/category', {layout: 'admin/layout', categories: categories}); 
-    });
+    if(!req.session.user) {
+      return res.view('admin/login', {layout: false});
+    }
+    else 
+    {
+      CategoryService.getAllCategories(function (categories) {
+        return res.view('admin/category', {layout: 'admin/layout', categories: categories}); 
+      });
+    }    
   },
 };
 
