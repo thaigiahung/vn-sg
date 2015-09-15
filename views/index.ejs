@@ -1,6 +1,6 @@
 <section class="col-main col-sm-9 col-sm-push-3 wow bounceInUp animated">
   <div class="category-products">
-    <div class="toolbar">
+    <!-- <div class="toolbar">
       <div class="sorter">
         <div class="view-mode"> 
           <span title="Grid" class="button button-active  button-grid">Grid</span>&nbsp;
@@ -46,7 +46,9 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div> -->
+
+    
     <ul class="products-grid">
       <% if (data.length > 0) { %>
         <% _.each(data, function (obj) { %>
@@ -56,7 +58,7 @@
                 <div class="product-image"> 
                   <a href="/product/<%= obj.id %>">
                     <figure class="product-display">
-                      <div class="sale-label sale-top-left">Sale</div>
+                      <!-- <div class="sale-label sale-top-left">Sale</div> -->
                       <% if (obj.images.length > 0) { %>
                         <img src="<%= obj.images[0].url %>" class="lazyOwl product-mainpic" alt="" style="display: block;" > 
                         <img class="product-secondpic" alt="" src="<%= obj.images[0].url %>" width="258">
@@ -85,14 +87,14 @@
                     <div class="item-price">
                       <div class="price-box"> <span class="regular-price" > <span class="price"><%= obj.price %> SGD</span> </span> </div>
                     </div>
-                    <div class="rating">
+                    <!-- <div class="rating">
                       <div class="ratings">
                         <div class="rating-box">
                           <div class="rating" style="width:80%"></div>
                         </div>
                         <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>

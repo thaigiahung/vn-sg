@@ -1,6 +1,6 @@
 module.exports = {
   getAllCategories: function (callback) {
-    Category.find().exec(function (err, categories) {
+    Category.find({status: 1}).exec(function (err, categories) {
       callback(categories);
     });
   },
