@@ -124,6 +124,8 @@
         }, 500);
       }
     });
+
+    google.maps.event.trigger(document.getElementById("txtAddress"), "keyup");
     /*google.maps.event.addDomListener(document.getElementById("txtAddress"), "keydown", function(domEvent) {
       if (domEvent.which === 13 || domEvent.keyCode === 13) {
         google.maps.event.trigger(document.getElementById("search-btn"), "click");
