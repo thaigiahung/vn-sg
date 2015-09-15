@@ -123,14 +123,14 @@
               <div class="collapse navbar-collapse">
                 <form class="navbar-form" role="search">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input id="txtSearch" type="text" class="form-control" placeholder="Search">
                     <span class="input-group-btn">
                       <button type="reset" class="btn btn-default"> 
                         <span class="glyphicon glyphicon-remove"> 
                           <span class="sr-only">Close</span> 
                         </span> 
                       </button>
-                      <button type="submit" class="btn btn-default"> 
+                      <button id="btnSearch" type="button" class="btn btn-default"> 
                         <span class="glyphicon glyphicon-search"> 
                           <span class="sr-only">Search</span> 
                         </span> 
@@ -245,12 +245,12 @@
     <ul>
       <li>
         <div class="mm-search">
-          <form id="search" name="search">
+          <form name="search">
             <div class="input-group">
               <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
+                <button id="btnSearchMobile" class="btn btn-default" type="button"><i class="icon-search"></i></button>
               </div>
-              <input type="text" class="form-control simple" placeholder="Search ..." name="srch-term" id="srch-term">
+              <input type="text" class="form-control simple" placeholder="Search ..." id="txtSearchMobile">
             </div>
           </form>
         </div>

@@ -52,6 +52,7 @@ module.exports.routes = {
   'GET /category/:id': 'ProductController.viewProductByCategory',
   'GET /cart': 'OrderController.viewCart',
   'GET /checkout': 'OrderController.checkout',
+  'GET /search': 'ProductController.search',
   'GET /manage': 'CategoryController.manage',
   'GET /manage/category': 'CategoryController.manage',
   'GET /manage/product': 'ProductController.manage',

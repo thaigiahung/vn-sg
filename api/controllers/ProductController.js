@@ -101,6 +101,44 @@ module.exports = {
     });    
   },
 
+  search: function(req, res) {
+    var keyword = req.query.keyword;
+    CategoryService.getAllCategories(function (categories) {
+      Product.find({
+        status: 1,
+        or: [
+          {name: {'contains': keyword}},
+          {description: {'contains': keyword}}
+        ]
+      }).exec(function (err, products) {
+        if(err || !products) {
+          return res.view('index', {data: []});
+        }
+        else {
+          var data = [];
+          async.eachSeries(products, function iterator(product, callback) {
+            ProductImages.find({
+              product: product.id, 
+              status: 1
+            }).exec(function (err, images) {
+              var prod = {
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                images: images
+              }
+
+              data.push(prod);
+              callback(null, data);
+            });          
+          }, function done() {
+            return res.view('index', {ip: req.ip, categories: categories, data: data});
+          });        
+        }
+      });
+    });    
+  },
+
   manage: function(req, res) {
     if(!req.session.user) {
       return res.view('admin/login', {layout: false});

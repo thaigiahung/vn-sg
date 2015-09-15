@@ -66,11 +66,12 @@ module.exports.policies = {
   ProductController: {
     find: true,
     view: true,
+    search: true,
     viewProductByCategory: true,
     viewDetail: true,
     manage: true,
     manageDetail: true,
-    updateProduct: true,    
+    updateProduct: true,
   },
   ServiceController: {
     updateEntity: true,

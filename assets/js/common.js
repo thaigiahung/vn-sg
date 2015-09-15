@@ -380,16 +380,20 @@ jQuery(window).on("load", function() {
                     t.find("input").val(""), t.removeClass("active")
                 }
                 e('header, .navbar-collapse form[role="search"] button[type="reset"]').on("click keyup", function(n) {
-                    console.log(n.currentTarget), (27 == n.which && e('.navbar-collapse form[role="search"]').hasClass("active") || "reset" == e(n.currentTarget).attr("type")) && t()
-                }), e(document).on("click", '.navbar-collapse form[role="search"]:not(.active) button[type="submit"]', function(t) {
+                    // console.log(n.currentTarget), (27 == n.which && e('.navbar-collapse form[role="search"]').hasClass("active") || "reset" == e(n.currentTarget).attr("type")) && t()
+                }), e(document).on("click", '.navbar-collapse form[role="search"]:not(.active) button[type="button"]', function(t) {
                     t.preventDefault();
                     var n = e(this).closest("form"),
                         i = n.find("input");
                     n.addClass("active"), i.focus()
-                }), e(document).on("click", '.navbar-collapse form[role="search"].active button[type="submit"]', function(n) {
+                }), e(document).on("click", '.navbar-collapse form[role="search"].active button[type="button"]', function(n) {
                     n.preventDefault();
                     var i = e(this).closest("form"),
                         s = i.find("input");
+
+                    //Call function search in /assets/js/app.js
+                    search('Full', s.val());
+
                     e("#showSearchTerm").text(s.val()), t()
                 })
             })

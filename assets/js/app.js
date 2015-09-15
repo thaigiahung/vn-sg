@@ -369,6 +369,24 @@ $(document).on("change", "#txtQty" , function() {
   checkQuantity(this);
 });
 
+$('#btnSearchMobile').click(function (event) {
+  search('Mobile', $('#txtSearchMobile').val());
+});
+
+$("#txtSearch").on( "keydown", function(event) {  
+  if(event.which == 13) {
+    search('Mobile', $('#txtSearch').val());
+    event.preventDefault();
+  }
+});
+
+$("#txtSearchMobile").on( "keydown", function(event) {  
+  if(event.which == 13) {
+    search('Mobile', $('#txtSearchMobile').val());
+    event.preventDefault();
+  }
+});
+
 /* --------------- Custom function --------------- */
 //Search an item in an array of object
 function arrayObjectIndexOf(myArray, searchTerm, property) {
@@ -577,4 +595,17 @@ function checkQuantity (ele) {
   if(isNaN(qty) || qty <= 1) {
     ele.value = 1;
   }
+}
+
+function search (layout, keyword) {
+  mixpanel.track(
+    "Search",
+    { 
+      "ip_address": $('#hdIP').val(),
+      "layout": layout,
+      "keyword": keyword
+    }
+  );
+
+  redirect("/search?keyword="+keyword);
 }
