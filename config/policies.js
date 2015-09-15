@@ -79,6 +79,9 @@ module.exports.policies = {
   ProductImagesController: {
     uploadImage: true,
     removeImage: true,
-  }
+  },
+  TrackingShipmentController: {
+    view: true,
+  },
 
 };

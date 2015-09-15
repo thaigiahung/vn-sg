@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href='http://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="css/vertical-timeline/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/vertical-timeline/style.css"> <!-- Resource style -->
+	<script src="/js/vertical-timeline/modernizr.js"></script> <!-- Modernizr -->
+  	
+	<title>Vietnam-Singapore</title>
+</head>
+<body>
+	<a href="/">
+		<header>
+			<h1>VN-SG.COM</h1>
+		</header>
+	</a>	
+
+	<section id="cd-timeline" class="cd-container">
+		<% if(status == 0) { %>
+			<h2><%= message %></h2>
+		<% } else { %>
+			<% _.each(data, function (obj) { %>
+				<% if(obj.type == 1) { %>
+					<div class="cd-timeline-block">
+						<div class="cd-timeline-img cd-location">
+							<img src="/images/vertical-timeline/cd-icon-location.svg" alt="Location">
+						</div> <!-- cd-timeline-img -->
+
+						<div class="cd-timeline-content">
+							<% if(obj.message) { %>
+								<p><%= obj.message %></p>
+							<% } %>
+							<span class="cd-date"><%= obj.createdAt %></span>
+						</div> <!-- cd-timeline-content -->
+					</div> <!-- cd-timeline-block -->
+				<% } else if(obj.type == 2) { %>
+					<div class="cd-timeline-block">
+						<div class="cd-timeline-img cd-picture">
+							<img src="/images/vertical-timeline/cd-icon-picture.svg" alt="Picture">
+						</div> <!-- cd-timeline-img -->
+
+						<div class="cd-timeline-content">
+							<img src="<%= obj.url %>">
+							<% if(obj.message) { %>
+								<p><%= obj.message %></p>
+							<% } %>
+							<span class="cd-date"><%= obj.createdAt %></span>
+						</div> <!-- cd-timeline-content -->
+					</div> <!-- cd-timeline-block -->
+				<% } else if(obj.type == 3) { %>
+					<div class="cd-timeline-block">
+						<div class="cd-timeline-img cd-movie">
+							<img src="/images/vertical-timeline/cd-icon-movie.svg" alt="Movie">
+						</div> <!-- cd-timeline-img -->
+
+						<div class="cd-timeline-content">
+							<p><a href="<%= obj.url %>">Click here to watch video</a></p>
+							<% if(obj.message) { %>
+								<p><%= obj.message %></p>
+							<% } %>
+							<span class="cd-date"><%= obj.createdAt %></span>
+						</div> <!-- cd-timeline-content -->
+					</div> <!-- cd-timeline-block -->
+				<% } %>
+			<% }) %>
+		<% } %>
+
+	</section> <!-- cd-timeline -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/js/vertical-timeline/main.js"></script> <!-- Resource jQuery -->
+</body>
+</html>

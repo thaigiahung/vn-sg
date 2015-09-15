@@ -61,6 +61,7 @@ module.exports.routes = {
   'GET /manage/order/confirmed': 'OrderController.viewConfirmed',
   'GET /manage/order/canceled': 'OrderController.viewCanceled',
   'GET /manage/order/:id/detail': 'OrderController.viewDetail',
+  'GET /tracking': 'TrackingShipmentController.view',
   
 
   //API
