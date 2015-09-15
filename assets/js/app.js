@@ -193,7 +193,7 @@ $('.btn-continue').click(function (event) {
     }
   );
 
-  redirect("/");
+  // redirect("/");
 });
 
 $('#empty_cart_button').click(function (event) {
