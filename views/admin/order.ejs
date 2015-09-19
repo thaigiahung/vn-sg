@@ -21,6 +21,7 @@
                 <th>Address</th>
                 <th>Phone</th>
                 <th>Total</th>
+                <th>Tracking</th>
                 <% if(type == 'all') { %>
                   <th>Status</th>
                 <% } %>
@@ -43,6 +44,9 @@
                 </td>
                 <td>
                   <a href="/manage/order/<%= obj.id %>/detail"><%= obj.total %> SGD</a>
+                </td>
+                <td>
+                  <a href="/manage/order/<%= obj.id %>/tracking"><%= obj.uuid %></a>
                 </td>
                 <% if(type == 'all') { %>
                   <td>

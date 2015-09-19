@@ -241,6 +241,21 @@ $('#btnCancelOrder').click(function (event) {
     }
   });
 });
+
+$('input:radio[name="rdoType"]').change(function(){
+  if($(this).val() == 1) { //Location
+    $('#file').hide();
+    $('#txtUrl').hide();
+  }
+  else if($(this).val() == 2) { //Image
+    $('#file').show();
+    $('#txtUrl').hide();
+  }
+  else { //Video
+    $('#file').hide();
+    $('#txtUrl').show();
+  }
+});
 /* --------------- End Button Click --------------- */
 
 
@@ -265,11 +280,11 @@ function disableItem(ele, modelName, id, field) {
     value: 2
   }
   $.post( "/entity/update", data).done(function( result ) {
-    if(result.status == 0) {
+    if(result.status == 0) { //Fail => show error message
       $('#modalMessageBody').text(result.message);
       $('#modalMessage').modal();
     }
-    else {
+    else { //Success => update layout
       $(ele).parent().parent().children('td').eq(-2).text('Disabled')
       $(ele).parent().children().last().show();
       $(ele).parent().children().first().hide();
@@ -285,14 +300,26 @@ function activeItem(ele, modelName, id, field) {
     value: 1
   }
   $.post( "/entity/update", data).done(function( result ) {
-    if(result.status == 0) {
+    if(result.status == 0) { //Fail => show error message
       $('#modalMessageBody').text(result.message);
       $('#modalMessage').modal();
     }
-    else {
+    else { //Success => update layout
       $(ele).parent().parent().children('td').eq(-2).text('Active')
       $(ele).parent().children().last().hide();
       $(ele).parent().children().first().show();
+    }    
+  });
+}
+
+function deleteTrackingShipment(ele, id) {
+  $.get( "/manage/tracking-shipment/"+id+"/delete").done(function( result ) {
+    if(result.status == 0) { //Fail => show error message
+      $('#modalMessageBody').text(result.message);
+      $('#modalMessage').modal();
+    }
+    else { //Success => remove the current row
+      $(ele).parent().parent().remove();
     }    
   });
 }

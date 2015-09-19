@@ -62,6 +62,7 @@ module.exports.routes = {
   'GET /manage/order/confirmed': 'OrderController.viewConfirmed',
   'GET /manage/order/canceled': 'OrderController.viewCanceled',
   'GET /manage/order/:id/detail': 'OrderController.viewDetail',
+  'GET /manage/order/:id/tracking': 'TrackingShipmentController.manageTracking',
   'GET /tracking': 'TrackingShipmentController.view',
   'GET /manage/login': 'UserController.viewLogin',
   'GET /manage/logout': 'UserController.logout',
@@ -76,4 +77,6 @@ module.exports.routes = {
   'POST /product/:id/image/remove': 'ProductImagesController.removeImage',
   'POST /manage/login': 'UserController.login',
   'POST /hash/password': 'UserController.hash',
+  'GET /manage/tracking-shipment/:id/delete': 'TrackingShipmentController.removeTracking',
+  'POST /manage/tracking-shipment/:id/create': 'TrackingShipmentController.createTracking',
 };

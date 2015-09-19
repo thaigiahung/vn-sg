@@ -61,7 +61,7 @@ module.exports.policies = {
     viewDetail: true,
     viewAll: true,
     viewConfirmed: true,
-    viewCanceled: true,
+    viewCanceled: true,    
   },
   ProductController: {
     find: true,
@@ -83,6 +83,9 @@ module.exports.policies = {
   },
   TrackingShipmentController: {
     view: true,
+    manageTracking: true,
+    removeTracking: true,
+    createTracking: true,
   },
   UserController: {
     viewLogin: true,

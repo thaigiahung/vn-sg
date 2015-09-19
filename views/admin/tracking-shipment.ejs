@@ -1,0 +1,138 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Tracking Shipment <a href="/tracking?id=<%= order.uuid %>"><%= order.uuid %></a></h1>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        List of trackings
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover" id="tableTrackingShipment">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Url</th>
+                <th>Message</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="tableTrackingShipmentBody">
+              <% _.each(data, function (obj) { %>
+                <tr>
+                  <td><%= obj.id %></td>          
+                  <td>
+                    <% if(obj.type == 1) { %>
+                      Location
+                    <% } else if(obj.type == 2) { %>
+                      Image
+                    <% } else if(obj.type == 3) { %>
+                      Video
+                    <% } %>
+                  </td>
+                  <td>
+                    <% if(obj.type == 2) { %>
+                      <img src="<%= obj.url %>">
+                    <% } else if(obj.type == 3) { %>
+                      <a href="<%= obj.url %>"><%= obj.url %></a>
+                    <% } %>
+                  </td>
+                  <td>
+                    <% if(obj.message) { %>
+                      <%- obj.message %>
+                    <% } %>
+                  </td>
+                  <td>
+                    <button type="button" onclick="deleteTrackingShipment(this,<%= obj.id %>)" class="btn btn-outline btn-danger">Delete</button>
+                  </td>                            
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.table-responsive -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-outline btn-info add" data-toggle="modal" data-target="#modalCreateTracking">Create</button>                    
+        </div>
+      </div>
+      <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+
+    <div id="modalCreateTracking" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Create Tracking</h4>
+          </div>
+
+          <div class="modal-body">
+            <div id="trackingShipmentMessage" class="alert alert-danger" role="alert" style="display: none;"></div>
+            <form action="/manage/tracking-shipment/<%= order.id %>/create" id="frmCreateTracking" role="form" method="post" enctype='multipart/form-data'>
+              <div class="form-group">
+                <label>Type</label>
+                <label class="radio-inline">
+                  <input type="radio" name="rdoType" value="1" checked>Location
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="rdoType" value="2">Image
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="rdoType" value="3">Video
+                </label>
+              </div>
+
+              <div class="form-group">
+                <input type="file" name="file" id="file" accept="image/*" style="display: none;">
+              </div>
+            
+              <div class="form-group">
+                <input type="text" class="form-control" name="txtUrl" id="txtUrl" placeholder="Video" style="display: none;">
+              </div>
+
+              <div class="form-group">
+                <textarea id="txtMessage" name="txtMessage" id="txtMessage" style="width:100%" placeholder="Message"></textarea>
+              </div>
+
+              <div class="modalFooter">
+                <button type="button" class="btn btn-outline btn-warning" data-dismiss="modal">Close</button>
+                <!-- <button type="button" onclick="createTrackment(<%= order.id %>)" class="btn btn-outline btn-info">Save</button> -->
+                <button type="submit" class="btn btn-outline btn-info">Save</button>
+              </div>
+            </form>
+          </div> 
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Error</h4>
+          </div>
+          <div class="modal-body" id="errorModelMessage">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+  </div>
+  <!-- /.col-lg-12 -->
+</div>

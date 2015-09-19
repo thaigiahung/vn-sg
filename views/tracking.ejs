@@ -32,7 +32,7 @@
 
 						<div class="cd-timeline-content">
 							<% if(obj.message) { %>
-								<p><%= obj.message %></p>
+								<p><%- obj.message %></p>
 							<% } %>
 							<span class="cd-date"><%= obj.createdAt %></span>
 						</div> <!-- cd-timeline-content -->
@@ -46,7 +46,7 @@
 						<div class="cd-timeline-content">
 							<img src="<%= obj.url %>">
 							<% if(obj.message) { %>
-								<p><%= obj.message %></p>
+								<p><%- obj.message %></p>
 							<% } %>
 							<span class="cd-date"><%= obj.createdAt %></span>
 						</div> <!-- cd-timeline-content -->
@@ -58,9 +58,9 @@
 						</div> <!-- cd-timeline-img -->
 
 						<div class="cd-timeline-content">
-							<p><a href="<%= obj.url %>">Click here to watch video</a></p>
+							<p><a href="<%= obj.url %>"><%= obj.url %></a></p>
 							<% if(obj.message) { %>
-								<p><%= obj.message %></p>
+								<p><%- obj.message %></p>
 							<% } %>
 							<span class="cd-date"><%= obj.createdAt %></span>
 						</div> <!-- cd-timeline-content -->
