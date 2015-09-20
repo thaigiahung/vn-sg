@@ -46,7 +46,7 @@ module.exports = {
             }
             else {
               //Copy file to .tmp
-              // fs.createReadStream(uploadPath+originalName).pipe(fs.createWriteStream('./.tmp/public'+url));
+              fs.createReadStream(uploadPath+originalName).pipe(fs.createWriteStream('./.tmp/public'+url));
               
               return res.json({
                 status: 1,
