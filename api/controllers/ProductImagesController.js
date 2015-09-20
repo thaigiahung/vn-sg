@@ -6,6 +6,7 @@
  */
 
 var fs = require('fs');
+var mkdirp = require('mkdirp');
 
 module.exports = {
 	uploadImage: function(req, res) {
@@ -22,6 +23,7 @@ module.exports = {
       var originalName = uploadedFile._files[0].stream.filename;
       var uploadPath = './assets/images/products/'+id+'/';
       var url = '/images/products/'+id+'/'+originalName;
+      var tmpPath = './.tmp/public/images/products/'+id;
 
       uploadedFile.upload({
         dirname: require('path').resolve(uploadPath),
@@ -45,8 +47,10 @@ module.exports = {
               });
             }
             else {
-              //Copy file to .tmp
-              fs.createReadStream(uploadPath+originalName).pipe(fs.createWriteStream('./.tmp/public'+url));
+              mkdirp(tmpPath, function (err) {
+                //Copy file to .tmp
+                fs.createReadStream(uploadPath+originalName).pipe(fs.createWriteStream('./.tmp/public'+url));
+              });
               
               return res.json({
                 status: 1,
