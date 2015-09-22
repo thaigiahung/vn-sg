@@ -5,6 +5,9 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+var fs = require('fs');
+var mkdirp = require('mkdirp');
+
 module.exports = {
 	view: function(req, res) {
     var orderUUID = req.query.id;
@@ -106,6 +109,7 @@ module.exports = {
             var originalName = uploadedFile._files[0].stream.filename;
             var uploadPath = './assets/images/tracking-shipments/'+id+'/';
             var url = '/images/tracking-shipments/'+id+'/'+originalName;
+            var tmpPath = './.tmp/public/images/tracking-shipments/'+id;
 
             uploadedFile.upload({
               dirname: require('path').resolve(uploadPath),
@@ -115,6 +119,11 @@ module.exports = {
                 return res.redirect('/manage/order/'+id+'/tracking');
               }
               else {
+                mkdirp(tmpPath, function (err) {
+                  //Copy file to .tmp
+                  fs.createReadStream(uploadPath+originalName).pipe(fs.createWriteStream('./.tmp/public'+url));
+                });
+
                 createdTracking.url = url;
                 createdTracking.save(function(err, updatedTracking){
                   return res.redirect('/manage/order/'+id+'/tracking');
