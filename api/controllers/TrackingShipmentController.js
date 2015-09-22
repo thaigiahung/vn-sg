@@ -71,7 +71,7 @@ module.exports = {
       return res.view('admin/login', {layout: false});
     }
     else {
-      TrackingShipment.destroy({id:req.params.id}).exec(function deleteCB(err){
+      TrackingShipment.destroy({id:req.params.id}).exec(function deleteCB(err, deleted){
         if(err) {
           return res.json({
             status: 0,
@@ -79,6 +79,10 @@ module.exports = {
           });
         }
         else {
+          deleted = deleted[0];
+          fs.unlink('./assets'+deleted.url, function (err) {});
+          fs.unlink('./.tmp/public'+deleted.url, function (err) {});
+          
           return res.json({
             status: 1,
             message: "Success!"
