@@ -19,6 +19,7 @@ module.exports = {
     lng: { type: 'float' },
     phone: { type: 'string' },
     total: { type: 'float' },
+    note: { type: 'text' },
     status: { type: 'integer', defaultsTo: 1 }, //1: new, 2: confirmed, 3: canceled
     createdAt: {type: 'datetime'},
     updatedAt: {type: 'datetime'}

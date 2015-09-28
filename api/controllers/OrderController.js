@@ -28,8 +28,9 @@ module.exports = {
     var address = req.body.address;
     var lat = req.body.lat;
     var lng = req.body.lng;
-    var phone = req.body.phone;    
+    var phone = req.body.phone;
     var total = parseFloat(req.body.total);
+    var note = req.body.note;
 
     var products = JSON.parse(req.body.products);
     var quantities = JSON.parse(req.body.quantities);
@@ -65,7 +66,8 @@ module.exports = {
         lat: lat,
         lng: lng,
         phone: phone,
-        total: total
+        total: total,
+        note: note
       }).exec(function (err, createdOrder){
         if(err || !createdOrder) {
           return res.json ({

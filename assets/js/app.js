@@ -234,6 +234,7 @@ $('#frmCheckout').submit(function(event){
   var lat = $('#txtLat').val();
   var lng = $('#txtLng').val();
   var phone = $('#txtPhone').val();
+  var note = $('#txtNote').val();
 
   // do whatever you want here
   var data = {
@@ -246,7 +247,8 @@ $('#frmCheckout').submit(function(event){
     phone: phone,
     products: localStorage.products,
     quantities: localStorage.quantities,
-    total: parseFloat(localStorage.total)
+    total: parseFloat(localStorage.total),
+    note: note
   }
 
   //Save receiver info in localStorage

@@ -34,6 +34,15 @@
               <td><%= order.phone %></td>
             </tr>
             <tr>
+              <td>Note</td>
+              <td>:</td>
+              <td>
+                <% if(order.note) { %>
+                  <%= order.note %>
+                <% } %>
+              </td>
+            </tr>
+            <tr>
               <td>Order at (SG Time)</td>
               <td>:</td>
               <td><%= moment(order.createdAt).tz('asia/singapore').format("DD/MM/YYYY hh:mm:ss a") %></td>
