@@ -18,6 +18,10 @@ module.exports = {
     lat: { type: 'float' },
     lng: { type: 'float' },
     phone: { type: 'string' },
+    phoneCountry: {
+        type: 'string',
+        enum: ['sg', 'vn']
+    },
     total: { type: 'float' },
     note: { type: 'text' },
     status: { type: 'integer', defaultsTo: 1 }, //1: new, 2: confirmed, 3: canceled

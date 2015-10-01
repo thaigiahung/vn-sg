@@ -142,14 +142,16 @@ $( document ).ready(function() {
 
       if(personalInfo) {
         personalInfo = JSON.parse(personalInfo);
+        console.log(personalInfo);
         
-        $('#txtFirstName').val(personalInfo.firstName),
-        $('#txtLastName').val(personalInfo.lastName),
-        $('#txtEmail').val(personalInfo.email),
-        $('#txtAddress').val(personalInfo.address),
-        $('#txtLat').val(personalInfo.lat),
-        $('#txtLng').val(personalInfo.lng),
-        $('#txtPhone').val(personalInfo.phone)
+        $('#txtFirstName').val(personalInfo.firstName);
+        $('#txtLastName').val(personalInfo.lastName);
+        $('#txtEmail').val(personalInfo.email);
+        $('#txtAddress').val(personalInfo.address);
+        $('#txtLat').val(personalInfo.lat);
+        $('#txtLng').val(personalInfo.lng);
+        $('#txtPhone').val(personalInfo.phone);
+        $("#ddlCountry").val(personalInfo.country);
       }     
     }
 
@@ -233,6 +235,7 @@ $('#frmCheckout').submit(function(event){
   var address = $('#txtAddress').val();
   var lat = $('#txtLat').val();
   var lng = $('#txtLng').val();
+  var country = $('#ddlCountry').val();
   var phone = $('#txtPhone').val();
   var note = $('#txtNote').val();
 
@@ -245,6 +248,7 @@ $('#frmCheckout').submit(function(event){
     lat: lat,
     lng: lng,
     phone: phone,
+    country: country,
     products: localStorage.products,
     quantities: localStorage.quantities,
     total: parseFloat(localStorage.total),
@@ -259,7 +263,8 @@ $('#frmCheckout').submit(function(event){
     address: address,
     lat: lat,
     lng: lng,
-    phone: phone
+    phone: phone,
+    country: country
   }
   localStorage.personalInfo = JSON.stringify(personalInfo);  
 
@@ -278,6 +283,7 @@ $('#frmCheckout').submit(function(event){
         "email": email,
         "address": address,
         "phone": phone,
+        "country": country,
         "status": (result.status == 1) ? 'Success' : 'Fail'
       }
     );

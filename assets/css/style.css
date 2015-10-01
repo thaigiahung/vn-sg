@@ -8387,7 +8387,8 @@ input.radio {
 	padding: 3px;
 	background: #f7f7f7;
 	border: 1px solid #ddd;
-	padding: 8px;
+	/*padding: 8px;*/
+	padding: 10px;
 }
 .group-select li select:focus {
 	padding: 3px;
@@ -8410,7 +8411,8 @@ input.radio {
 }
 .group-select li .input-box select {
 	width: 96%;
-	margin-top: 5px;
+	/*margin-top: 5px;*/
+	margin-top: 9px;
 	outline: none;
 }
 .group-select.wide input.input-text, .group-select.wide textarea {

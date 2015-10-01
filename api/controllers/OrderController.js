@@ -29,6 +29,7 @@ module.exports = {
     var lat = req.body.lat;
     var lng = req.body.lng;
     var phone = req.body.phone;
+    var country = req.body.country;
     var total = parseFloat(req.body.total);
     var note = req.body.note;
 
@@ -36,7 +37,7 @@ module.exports = {
     var quantities = JSON.parse(req.body.quantities);
 
     if(!firstName || !lastName || !email ||
-        !address || !lat || !lng || !phone) {
+        !address || !lat || !lng || !phone || !country) {
       return res.json ({
         "status": 0,
         "message": "Please fill all required fields!"
@@ -66,6 +67,7 @@ module.exports = {
         lat: lat,
         lng: lng,
         phone: phone,
+        phoneCountry: country,
         total: total,
         note: note
       }).exec(function (err, createdOrder){
@@ -93,7 +95,7 @@ module.exports = {
             htmlBody += '<tr style="color:#7bbd42;font-size:18px;"><td colspan="3">Grand Total</td><td>'+total+' SGD</td></tr></tbody></table>';
 
             //Send mail
-            EmailService.sendMail(htmlBody, email, 'Receipt', createdOrder.uuid, receiver, phone, address, function (result) {
+            EmailService.sendMail(htmlBody, email, 'Receipt', createdOrder.uuid, receiver, country, phone, address, function (result) {
               createdOrder.emailResult = JSON.stringify(result);
               createdOrder.save(function(err,s){});
             });

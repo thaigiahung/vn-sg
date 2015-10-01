@@ -48,12 +48,22 @@
                   </div>
                 </li>
                 <li>
-                  <label for="txtPhone">Phone <span class="required">*</span></label>
-                  <br />
-                  <input type="text" title="Phone" name="txtPhone" id="txtPhone" class="input-text required-entry" required/>
+                  <div class="input-box">
+                    <label for="ddlCountry">Country</label>
+                    <br />
+                    <select id="ddlCountry">
+                      <option value="sg" selected>Singapore</option>
+                      <option value="vn">Vietnam</option>                      
+                    </select>
+                  </div>
+                  <div class="input-box">
+                    <label for="txtPhone">Phone <span class="required">*</span></label>
+                    <br />
+                    <input type="text" title="Phone" name="txtPhone" id="txtPhone" class="input-text required-entry" required/>
+                  </div>
                 </li>
                 <li>
-                  <label for="txtPhone">Note</label>
+                  <label for="txtNote">Note</label>
                   <textarea class="form-control" name="txtNote" id="txtNote" rows="3"></textarea>
                 </li>
               </ul>

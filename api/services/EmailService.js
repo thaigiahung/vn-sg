@@ -1,5 +1,5 @@
 module.exports = {
-  sendMail: function (html_body, to_address, category, orderID, receiver, phone, address, callback) {
+  sendMail: function (html_body, to_address, category, orderID, receiver, country, phone, address, callback) {
     /* SENDGRID CREDENTIALS
      * Enter in your SendGrid username and 
      * password below.
@@ -65,6 +65,9 @@ module.exports = {
     }
 
     // ADD THE SUBSTITUTION VALUES
+    var countryCode = (country == 'vn') ? '84' : '65';
+    phone = countryCode + ' ' + phone;
+
     var subs = {
       "-orderID-": [orderID],
       "-receiver-": [receiver],
