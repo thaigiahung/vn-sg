@@ -2315,6 +2315,36 @@ a.button.view-all {
 	color: #fff;
 	text-decoration: none;
 }
+
+a.button.contact-us:before {
+	content: "\2709";
+	font-family: FontAwesome;
+	font-size: 13px;
+	padding-right: 8px;
+}
+a.button.contact-us {
+	display: inline-block;
+	border: 0;
+	background: #fff;
+	font-size: 11px;
+	text-align: center;
+	white-space: nowrap;
+	color: #333;
+	font-weight: bold;
+	transition: all 0.3s linear;
+	vertical-align: top;
+	border: 1px solid #ddd;
+	font-family: "Raleway", serif;
+	text-transform: uppercase;
+}
+.button.contact-us:hover {
+	background: #7bbd42;
+	transition: all 0.3s linear;
+	border: 1px solid #7bbd42;
+	color: #fff;
+	text-decoration: none;
+}
+
 .box-reviews .form-add h3 {
 	margin-bottom: 5px;
 	font-size: 12px;
